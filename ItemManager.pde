@@ -1,0 +1,160 @@
+import java.io.ByteArrayOutputStream;
+import java.io.*;
+
+public class ItemManager {
+  private ArrayList<Drawable> items = new ArrayList<Drawable>();
+
+  public ItemManager() {
+    clear();
+  }
+
+  public void clear() {
+    items.clear();
+  }
+
+  public void add(Drawable d) {
+    items.add(d);
+  }
+
+  public void addAndSelect(Drawable d) {
+    unSelectAll();
+    d.select(true);
+    items.add(d);
+  }
+
+  public void unSelectAll() {
+    for (Drawable d : items) {
+      d.select(false);
+    }
+  }
+
+  public void selectAll(boolean b) {
+    for (Drawable d : items) {
+      d.select(b);
+    }
+  }
+
+  public void select(int x, int y, boolean multi) {
+    if (!multi) {
+      unSelectAll();
+    }
+    for (Drawable d : items) {
+      if (d.isOver(x, y)) {
+        d.select(true);
+      }
+    }
+  }
+
+  public void boxSelect(int bx, int by, int bwidth, int bheight) {
+    unSelectAll();
+    for (Drawable d : items) {
+      if (d.inBox(bx, by, bwidth, bheight)) {
+        d.select(true);
+      }
+    }
+  }
+
+  public void updateAbsolutePos(int gs) {
+    for (Drawable d : items) {
+      d.updateAbsolutePos(gs);
+    }
+  }
+
+  public void setAbsolutePos(int x, int y, int gs) {
+    for (Drawable d : items) {
+      if (d.isSelected()) {
+        d.setAbsolutePos(x, y, gs);
+      }
+    }
+  }
+
+  public void setRelativePos(int rx, int ry, int gs) {
+    for (Drawable d : items) {
+      if (d.isSelected()) {
+        d.setRelativePos(rx, ry, gs);
+      }
+    }
+  }
+
+  public void increaseWidth(int inc, int gs) {
+    for (Drawable d : items) {
+      if (d.isSelected()) {
+        d.increaseWidth(inc, gs);
+      }
+    }
+  }
+
+  public void removeSelected() {
+    for (int i = items.size() - 1; i >= 0; i--) {
+      Drawable d = items.get(i);
+      if (d.isSelected()) {
+        items.remove(i);
+      }
+    }
+  }
+
+  public Drawable cloneSelected() {
+    for (Drawable d : items) {
+      if (d.isSelected()) {
+        return d.clone();
+      }
+    }
+    return null;
+  }
+
+  public void duplicateSelected(int ox, int oy, int gs) {
+    ArrayList<Drawable> selItems = new ArrayList<Drawable>();
+
+    for (Drawable d : items) {
+      if (d.isSelected()) {
+        Drawable cl = d.clone();
+        cl.setRelativePos(ox, oy, gs);
+        selItems.add(cl);
+      }
+    }
+    
+    // copy and select the duplicated items
+    unSelectAll();
+    for (Drawable d : selItems) {
+      d.select(true);
+      d.updateAbsolutePos(gs);
+      items.add(d);
+    }
+  }
+
+
+
+  public String toXML() {
+    IDGen.reset();
+    String result = "<gui>" + "\n";
+
+    for (Drawable d : items) {
+      result += d.toXML() + "\n";
+    }
+    return (result + "</gui>");
+  }
+
+  private byte[] convertToBytes(Object arr) throws IOException {
+    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+    ObjectOutput out = new ObjectOutputStream(bos);
+    out.writeObject(arr);
+    return bos.toByteArray();
+  }
+
+  public void save() {
+    Object[]arr = items.toArray();
+    try {
+      byte[] data = convertToBytes(arr);
+      saveBytes("numbers.dat", data);
+    } 
+    catch (Exception ex) {
+      println (ex);
+    }
+  }
+
+  public void draw() {
+    for (Drawable d : items) {
+      d.draw();
+    }
+  }
+}
