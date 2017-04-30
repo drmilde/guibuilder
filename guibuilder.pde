@@ -45,7 +45,9 @@ void setup() {
   // controls in G4P
 
   rects = new ArrayList<Rectangle> ();
-  createFileSystemGUI(width-300, ursprung_y, 300, 130, 6);
+  int nwdth = 200;
+  createFileSystemGUI(width- nwdth - 2, ursprung_y, 
+    nwdth, height - 2 - ursprung_y, 6);
 }
 
 
@@ -391,6 +393,18 @@ public void showPropertyPanel() {
   btnOutput.setVisible(propertyPanel);
   lblFile.setVisible(propertyPanel);
   title.setVisible(propertyPanel);
+  txf1.setVisible(propertyPanel);
+
+  nameLabel.setVisible(propertyPanel);
+  nameTextField.setVisible(propertyPanel);
+  xLabel.setVisible(propertyPanel);
+  xTextField.setVisible(propertyPanel);
+  yLabel.setVisible(propertyPanel);
+  yTextField.setVisible(propertyPanel);
+  wLabel.setVisible(propertyPanel);
+  wTextField.setVisible(propertyPanel);
+  hLabel.setVisible(propertyPanel);
+  hTextField.setVisible(propertyPanel);
 
   if (propertyPanel) {
     for (Rectangle r : rects) {
@@ -428,6 +442,58 @@ public void createFileSystemGUI(int x, int y, int w, int h, int border) {
   lblFile.setTextAlign(GAlign.LEFT, GAlign.MIDDLE);
   lblFile.setOpaque(true);
   lblFile.setLocalColorScheme(G4P.GREEN_SCHEME);
+
+
+  /// Textfield
+  txf1 = new GTextField(this, x, y + 130, w, 20);
+  txf1.tag = "txf1 - juppie duh";
+  txf1.setPromptText("Text field 1");
+
+  // propertyfields
+  nameLabel = new GLabel(this, x, y +170, w, 20);
+  nameLabel.setText("Name", GAlign.LEFT, GAlign.MIDDLE);
+  nameLabel.setOpaque(true);
+  nameLabel.setTextBold();
+
+  nameTextField = new GTextField(this, x, y + 190, w, 20);
+  nameTextField.tag = "name tf";
+  //nameTextField.setPromptText("Text field 1");
+
+  xLabel = new GLabel(this, x, y +210, w, 20);
+  xLabel.setText("x", GAlign.LEFT, GAlign.MIDDLE);
+  xLabel.setOpaque(true);
+  xLabel.setTextBold();
+
+  xTextField = new GTextField(this, x, y + 230, w, 20);
+  xTextField.tag = "x pos tf";
+  //xTextField.setPromptText("Text field 1");
+
+  yLabel = new GLabel(this, x, y +250, w, 20);
+  yLabel.setText("y", GAlign.LEFT, GAlign.MIDDLE);
+  yLabel.setOpaque(true);
+  yLabel.setTextBold();
+
+  yTextField = new GTextField(this, x, y + 270, w, 20);
+  yTextField.tag = "y pos tf";
+  //yTextField.setPromptText("Text field 1");
+
+  wLabel = new GLabel(this, x, y +290, w, 20);
+  wLabel.setText("width", GAlign.LEFT, GAlign.MIDDLE);
+  wLabel.setOpaque(true);
+  wLabel.setTextBold();
+
+  wTextField = new GTextField(this, x, y + 310, w, 20);
+  wTextField.tag = "w pos tf";
+  //wTextField.setPromptText("Text field 1");
+
+  hLabel = new GLabel(this, x, y +330, w, 20);
+  hLabel.setText("height", GAlign.LEFT, GAlign.MIDDLE);
+  hLabel.setOpaque(true);
+  hLabel.setTextBold();
+
+  hTextField = new GTextField(this, x, y + 350, w, 20);
+  hTextField.tag = "h pos tf";
+  //hTextField.setPromptText("Text field 1");
 }
 
 // Simple graphical frame to group controls
@@ -472,10 +538,46 @@ public void handleFileDialog(GButton button) {
   }
 }
 
+// handle text events
+
+public void displayEvent(String name, GEvent event) {
+  //print("name: \"" + name + "\"  ");
+  switch(event) {
+  case ENTERED: 
+    {
+      println("ENTERED, " +txf1.getText());
+      txf1.setFocus(false);
+      break;
+    }
+  default:
+    break;
+  }
+}
+
+public void handleTextEvents(GEditableTextControl textControl, GEvent event) { 
+  displayEvent(textControl.tag, event);
+}
+
+
 // Controls used for file dialog GUI 
 GLabel title;
 GButton btnFolder, btnInput, btnOutput;
 GLabel lblFile;
+
+// Textfeld
+GTextField txf1;
+
+// property fields
+GLabel nameLabel;
+GTextField nameTextField;
+GLabel xLabel;
+GTextField xTextField;
+GLabel yLabel;
+GTextField yTextField;
+GLabel wLabel;
+GTextField wTextField;
+GLabel hLabel;
+GTextField hTextField;
 
 // Graphic frames used to group controls
 ArrayList<Rectangle> rects ;
