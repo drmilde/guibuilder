@@ -118,4 +118,11 @@ public abstract class Drawable implements IDrawable, ISelectable {
 
     popStyle();
   }
+  
+  
+  
+  // getter
+  public String getName() {
+    return name;
+  }
 }

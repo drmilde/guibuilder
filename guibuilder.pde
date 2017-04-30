@@ -142,6 +142,7 @@ void update() {
       }
 
       items.updateAbsolutePos(gridSize);
+      setFields(); // update property panel
     }
 
     if (cx < ursprung_x) { // into catalog
@@ -224,6 +225,7 @@ void update() {
 
   if (state == 13) { //toggle property panel
     propertyPanel = !propertyPanel;
+    setFields();
     state = 0;
   }
 
@@ -556,6 +558,22 @@ public void displayEvent(String name, GEvent event) {
 
 public void handleTextEvents(GEditableTextControl textControl, GEvent event) { 
   displayEvent(textControl.tag, event);
+}
+
+
+// set value of fields
+
+void setFields() {
+  Drawable d = items.getFirstSelected();
+  if (d != null) {
+    nameTextField.setText(d.getName());
+    /*
+  xTextField.setVisible(propertyPanel);
+     yTextField.setVisible(propertyPanel);
+     wTextField.setVisible(propertyPanel);
+     hTextField.setVisible(propertyPanel);
+     */
+  }
 }
 
 

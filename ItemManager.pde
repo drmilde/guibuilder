@@ -54,6 +54,16 @@ public class ItemManager {
     }
   }
 
+  public Drawable getFirstSelected() {
+    for (Drawable d : items) {
+      if (d.isSelected()) {
+        return d;
+      }
+    }
+    return null;
+  }
+
+
   public void updateAbsolutePos(int gs) {
     for (Drawable d : items) {
       d.updateAbsolutePos(gs);
@@ -112,7 +122,7 @@ public class ItemManager {
         selItems.add(cl);
       }
     }
-    
+
     // copy and select the duplicated items
     unSelectAll();
     for (Drawable d : selItems) {
