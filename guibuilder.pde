@@ -131,7 +131,6 @@ void update() {
     cursor(ARROW); // reset cursor to arrow
   }
 
-
   if (state == 1) { // mouse has been clicked, slect item(s)
     if (cx > ursprung_x) { // into working area
 

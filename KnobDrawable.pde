@@ -3,14 +3,14 @@ public class KnobDrawable extends Drawable {
   public KnobDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_) {
     super(x_, y_, w_, h_, ux_, uy_);
     img = loadImage("knob.png");
-    name = "Knob" + IDGen.next();
+    putSProperty("name", "Knob" + IDGen.next());
   }
 
   // implement abstract methods
   public String toXML() {
     return (
       "<widget type=\"knob\">" + "\n" +  
-      "<name label=\"" + name + "\">"  + name + "</name>" + "\n" +
+      "<name label=\"" + pvS("name") + "\">"  + pvS("name") + "</name>" + "\n" +
 
       "<position " +  
       "x=\"" + pv("x") + "\"" +
@@ -60,14 +60,14 @@ public class LabelDrawable extends Drawable {
   public LabelDrawable(String txt_, int x_, int y_, int w_, int h_, int ux_, int uy_) {
     super(x_, y_, w_, h_, ux_, uy_);
     text = txt_;
-    name = "Label" + IDGen.next();
+    putSProperty("name", "Label" + IDGen.next());
   }
 
   // implement abstract methods
   public String toXML() {
     return (
       "<widget type=\"label\">" + "\n" +  
-      "<name label=\"" + name + "\">"  + name + "</name>" + "\n" +
+      "<name label=\"" + pvS("name") + "\">"  + pvS("name") + "</name>" + "\n" +
 
       "<position " +  
       "x=\"" + pv("x") + "\"" +
@@ -111,14 +111,14 @@ public class ButtonDrawable extends Drawable {
   public ButtonDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_) {
     super(x_, y_, w_, h_, ux_, uy_);
     img = loadImage("button.png");
-    name = "Button" + IDGen.next();
+    putSProperty("name", "Button" + IDGen.next());
   }
 
   // implement abstract methods
   public String toXML() {
     return (
       "<widget type=\"button\">" + "\n" +  
-      "<name label=\"" + name + "\">"  + name + "</name>" + "\n" +
+      "<name label=\"" + pvS("name") + "\">"  + pvS("name") + "</name>" + "\n" +
 
       "<position " +  
       "x=\"" + pv("x") + "\"" +
@@ -173,14 +173,14 @@ public class HSliderDrawable extends Drawable {
   public HSliderDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_) {
     super(x_, y_, w_, h_, ux_, uy_);
     img = loadImage("hslider.png");
-    name = "HSlider" + IDGen.next();
+    putSProperty("name", "HSlider" + IDGen.next());
   }
 
   // implement abstract methods
   public String toXML() {
     return (
       "<widget type=\"hslider\">" + "\n" +  
-      "<name label=\"" + name + "\">"  + name + "</name>" + "\n" +
+      "<name label=\"" + pvS("name") + "\">"  + pvS("name") + "</name>" + "\n" +
 
       "<position " +  
       "x=\"" + pv("x") + "\"" +
@@ -229,14 +229,14 @@ public class VSliderDrawable extends Drawable {
   public VSliderDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_) {
     super(x_, y_, w_, h_, ux_, uy_);
     img = loadImage("vslider.png");
-    name = "VSlider" + IDGen.next();
+    putSProperty("name", "VSlider" + IDGen.next());
   }
 
   // implement abstract methods
   public String toXML() {
     return (
       "<widget type=\"vslider\">" + "\n" +  
-      "<name label=\"" + name + "\">"  + name + "</name>" + "\n" +
+      "<name label=\"" + pvS("name") + "\">"  + pvS("name") + "</name>" + "\n" +
 
       "<position " +  
       "x=\"" + pv("x") + "\"" +

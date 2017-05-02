@@ -21,7 +21,6 @@ GTextField hTextField;
 // Graphic frames used to group controls
 ArrayList<Rectangle> rects ;
 
-
 ///////////////////// G4P
 
 public void showPropertyPanel(boolean show) {
@@ -205,7 +204,5 @@ void setFields(Drawable d) {
     yTextField.setText(d.getAbsoluteY() + "");
     wTextField.setText(d.getWidth() + "");
     hTextField.setText(d.getHeight() + "");
-    /*
-     */
   }
 }

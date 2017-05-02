@@ -1,17 +1,8 @@
 public abstract class Drawable implements IDrawable, ISelectable {
   protected PropertyManager pm = new PropertyManager();
 
-  protected String name = "noName";
-  
+  //protected String name = "noName";  
   protected boolean selected = false;
-
-  //protected int x, y;
-  //protected int w, h;
-  //protected int ux, uy;
-
-  //protected int offRx = 0; // relative x offset
-  //protected int offRy = 0; // relative y offset
-
   protected PImage img = null;
 
   abstract String toXML();
@@ -26,6 +17,8 @@ public abstract class Drawable implements IDrawable, ISelectable {
 
   public Drawable(int x_, int y_, int w_, int h_, int ux_, int uy_) {
     // create properties
+    pm.put("name", new Property ("name", "noName"));
+    
     pm.put("x", new Property ("x", 0));
     pm.put("y", new Property ("y", 0));
     pm.put("w", new Property ("w", 0));
@@ -38,21 +31,33 @@ public abstract class Drawable implements IDrawable, ISelectable {
     pm.put("offRy", new Property ("offRy", 0));
 
     // set inital values
-    putProperty("ux", ux_);
-    putProperty("uy", uy_);
+    putIProperty("ux", ux_);
+    putIProperty("uy", uy_);
 
-    putProperty("x", x_ + pv("ux"));
-    putProperty("y", y_ + pv("uy"));
-    putProperty("w", w_);
-    putProperty("h", h_);
+    putIProperty("x", x_ + pv("ux"));
+    putIProperty("y", y_ + pv("uy"));
+    putIProperty("w", w_);
+    putIProperty("h", h_);
   }
 
-  protected void putProperty(String att, int val) {
+  protected void putIProperty(String att, int val) {
     Property prop = pm.get(att);
     if (prop != null) {
       prop.setIValue(val);
       pm.put(att, prop);
     }
+  }
+
+  protected void putSProperty(String att, String val) {
+    Property prop = pm.get(att);
+    if (prop != null) {
+      prop.setSValue(val);
+      pm.put(att, prop);
+    }
+  }
+  
+  public Property getProperty(String att) {
+    return pm.get(att);
   }
 
   protected int pv(String att) {
@@ -61,6 +66,14 @@ public abstract class Drawable implements IDrawable, ISelectable {
       return prop.getIValue();
     }
     return 0;
+  }
+
+  protected String pvS(String att) {
+    Property prop = pm.get(att);
+    if (prop != null) {
+      return prop.getSValue();
+    }
+    return "";
   }
 
   //////////
@@ -81,17 +94,17 @@ public abstract class Drawable implements IDrawable, ISelectable {
     y = max(y, pv("uy")); // do not cross left border
 
     // reset relative offset
-    putProperty("offRx", 0);
-    putProperty("offRy", 0);
+    putIProperty("offRx", 0);
+    putIProperty("offRy", 0);
 
     // store current value
-    putProperty("x", x);
-    putProperty("y", y);
+    putIProperty("x", x);
+    putIProperty("y", y);
   }
 
   public void setAbsolutePos(int px, int py, int gs) { // sets absolute pos (snap to gridsize gs)
-    putProperty("x", px);
-    putProperty("y", py);
+    putIProperty("x", px);
+    putIProperty("y", py);
 
     updateAbsolutePos(gs);
   }
@@ -106,8 +119,8 @@ public abstract class Drawable implements IDrawable, ISelectable {
     offRx = offRx - (offRx % gs);
     offRy = offRy - (offRy % gs);
 
-    putProperty("offRx", offRx);
-    putProperty("offRy", offRy);
+    putIProperty("offRx", offRx);
+    putIProperty("offRy", offRy);
   }
 
   public void increaseWidth(int inc, int gs) {
@@ -116,7 +129,7 @@ public abstract class Drawable implements IDrawable, ISelectable {
     if (gs > 0) {
       w = w - (w % gs);
     }
-    putProperty("w", w);
+    putIProperty("w", w);
   }
 
   // ISelectable
@@ -174,7 +187,7 @@ public abstract class Drawable implements IDrawable, ISelectable {
 
   // getter
   public String getName() {
-    return name;
+    return pvS("name");
   }
   
   public int getAbsoluteX() {
