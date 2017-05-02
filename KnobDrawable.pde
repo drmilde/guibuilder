@@ -25,12 +25,18 @@ public class KnobDrawable extends Drawable {
   }
 
   public Drawable clone() {
-    return new KnobDrawable(pv("x"), pv("y"), pv("w"), pv("h"), ux, uy);
+    return new KnobDrawable(
+      pv("x"), pv("y"), 
+      pv("w"), pv("h"), 
+      pv("ux"), pv("uy"));
   }
 
 
   // overwrite draw method
   public void draw() {
+    int offRx = pv("offRx");
+    int offRy = pv("offRy");
+
     super.draw();
 
     pushStyle();
@@ -39,7 +45,9 @@ public class KnobDrawable extends Drawable {
     strokeWeight(2);
     //ellipse(x + w/2, y + h/2, w, h);
     imageMode(CENTER);
-    image(img, pv("x")+(pv("w")/2)+rx, pv("y")+ (pv("h")/2)+ry, pv("w"), pv("h"));
+    image(img, pv("x")+(pv("w")/2) + offRx, 
+      pv("y")+ (pv("h")/2) + offRy, 
+      pv("w"), pv("h"));
     popStyle();
   }
 }
@@ -73,17 +81,24 @@ public class LabelDrawable extends Drawable {
   }
 
   public Drawable clone() {
-    return new LabelDrawable(text, pv("x"), pv("y"), pv("w"), pv("h"), ux, uy);
+    return new LabelDrawable(text, pv("x"), pv("y"), 
+      pv("w"), pv("h"), 
+      pv("ux"), pv("uy"));
   }
 
   public void draw() {
+    int offRx = pv("offRx");
+    int offRy = pv("offRy");
+
     super.draw();
 
     pushStyle();
     stroke(#ffffff);
     fill(#ffffff);
     textAlign(CENTER);
-    text(text, pv("x") + (pv("w")/2) + rx, pv("y") + (pv("h")/2)+ ry);
+    text(text, 
+      pv("x") + (pv("w")/2) + offRx, 
+      pv("y") + (pv("h")/2) + offRy);
     popStyle();
   }
 }
@@ -124,12 +139,17 @@ public class ButtonDrawable extends Drawable {
   }
 
   public Drawable clone() {
-    return new ButtonDrawable(pv("x"), pv("y"), pv("w"), pv("h"), ux, uy);
+    return new ButtonDrawable(pv("x"), pv("y"), 
+      pv("w"), pv("h"), 
+      pv("ux"), pv("uy"));
   }
 
 
   // overwrite draw method
   public void draw() {
+    int offRx = pv("offRx");
+    int offRy = pv("offRy");
+
     super.draw();
 
     pushStyle();
@@ -138,8 +158,8 @@ public class ButtonDrawable extends Drawable {
     strokeWeight(2);
     //ellipse(x + w/2, y + h/2, w, h);
     imageMode(CENTER);
-    image(img, pv("x")+(pv("w")/2) + rx, 
-      pv("y")+ (pv("h")/2) + ry, 
+    image(img, pv("x")+(pv("w")/2) + offRx, 
+      pv("y")+ (pv("h")/2) + offRy, 
       pv("w"), pv("h"));
     popStyle();
   }
@@ -174,12 +194,17 @@ public class HSliderDrawable extends Drawable {
   }
 
   public Drawable clone() {
-    return new HSliderDrawable(pv("x"), pv("y"), pv("w"), pv("h"), ux, uy);
+    return new HSliderDrawable(pv("x"), pv("y"), 
+      pv("w"), pv("h"), 
+      pv("ux"), pv("uy"));
   }
 
 
   // overwrite draw method
   public void draw() {
+    int offRx = pv("offRx");
+    int offRy = pv("offRy");
+
     super.draw();
 
     pushStyle();
@@ -188,8 +213,8 @@ public class HSliderDrawable extends Drawable {
     strokeWeight(2);
     //ellipse(x + w/2, y + h/2, w, h);
     imageMode(CENTER);
-    image(img, pv("x")+(pv("w")/2) + rx, 
-      pv("y") + (pv("h")/2) + ry, 
+    image(img, pv("x")+(pv("w")/2) + offRx, 
+      pv("y") + (pv("h")/2) + offRy, 
       pv("w"), 20);
     popStyle();
   }
@@ -225,12 +250,17 @@ public class VSliderDrawable extends Drawable {
   }
 
   public Drawable clone() {
-    return new VSliderDrawable(pv("x"), pv("y"), pv("w"), pv("h"), ux, uy);
+    return new VSliderDrawable(pv("x"), pv("y"), 
+      pv("w"), pv("h"), 
+      pv("ux"), pv("uy"));
   }
 
 
   // overwrite draw method
   public void draw() {
+    int offRx = pv("offRx");
+    int offRy = pv("offRy");
+
     super.draw();
 
     pushStyle();
@@ -239,8 +269,8 @@ public class VSliderDrawable extends Drawable {
     strokeWeight(2);
     //ellipse(x + w/2, y + h/2, w, h);
     imageMode(CENTER);
-    image(img, pv("x")+(pv("w")/2) + rx, 
-      pv("y") + (pv("h")/2) + ry, 
+    image(img, pv("x")+(pv("w")/2) + offRx, 
+      pv("y") + (pv("h")/2) + offRy, 
       20, pv("h"));
     popStyle();
   }

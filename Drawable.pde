@@ -2,15 +2,15 @@ public abstract class Drawable implements IDrawable, ISelectable {
   protected PropertyManager pm = new PropertyManager();
 
   protected String name = "noName";
-
+  
   protected boolean selected = false;
 
   //protected int x, y;
   //protected int w, h;
-  protected int ux, uy;
+  //protected int ux, uy;
 
-  protected int rx = 0; // relative x offset
-  protected int ry = 0; // relative y offset
+  //protected int offRx = 0; // relative x offset
+  //protected int offRy = 0; // relative y offset
 
   protected PImage img = null;
 
@@ -31,20 +31,18 @@ public abstract class Drawable implements IDrawable, ISelectable {
     pm.put("w", new Property ("w", 0));
     pm.put("h", new Property ("h", 0));
 
+    pm.put("ux", new Property ("ux", 0));
+    pm.put("uy", new Property ("uy", 0));
+
+    pm.put("offRx", new Property ("offRx", 0));
+    pm.put("offRy", new Property ("offRy", 0));
+
     // set inital values
-    ux = ux_;
-    uy = uy_;
-    set(x_, y_, w_, h_);
-  }
+    putProperty("ux", ux_);
+    putProperty("uy", uy_);
 
-  private void set(int px, int py, int w_, int h_) {
-    //x = px + ux;
-    //y = py + uy;
-    //w = w_;
-    //h = h_;
-
-    putProperty("x", px + ux);
-    putProperty("y", py + uy);
+    putProperty("x", x_ + pv("ux"));
+    putProperty("y", y_ + pv("uy"));
     putProperty("w", w_);
     putProperty("h", h_);
   }
@@ -71,20 +69,20 @@ public abstract class Drawable implements IDrawable, ISelectable {
     int x = pv("x");
     int y = pv("y");
 
-    x = x + rx;
-    y = y + ry;
+    x = x + pv("offRx");
+    y = y + pv("offRy");
 
     if (gs > 0) {
       x = x - (x % gs);
       y = y - (y % gs);
     }
 
-    x = max(x, ux); // do not cross upper border
-    y = max(y, uy); // do not cross left border
+    x = max(x, pv("ux")); // do not cross upper border
+    y = max(y, pv("uy")); // do not cross left border
 
     // reset relative offset
-    rx = 0;
-    ry = 0;
+    putProperty("offRx", 0);
+    putProperty("offRy", 0);
 
     // store current value
     putProperty("x", x);
@@ -94,16 +92,22 @@ public abstract class Drawable implements IDrawable, ISelectable {
   public void setAbsolutePos(int px, int py, int gs) { // sets absolute pos (snap to gridsize gs)
     putProperty("x", px);
     putProperty("y", py);
-       
+
     updateAbsolutePos(gs);
   }
 
   public void setRelativePos (int rx_, int ry_, int gs) {
-    rx = rx_;
-    ry = ry_;
+    int offRx = pv("offRx");
+    int offRy = pv("offRy");
 
-    rx = rx - (rx % gs);
-    ry = ry - (ry % gs);
+    offRx = rx_;
+    offRy = ry_;
+
+    offRx = offRx - (offRx % gs);
+    offRy = offRy - (offRy % gs);
+
+    putProperty("offRx", offRx);
+    putProperty("offRy", offRy);
   }
 
   public void increaseWidth(int inc, int gs) {
@@ -149,6 +153,9 @@ public abstract class Drawable implements IDrawable, ISelectable {
 
   // IDrawable
   public void draw() {
+    int offRx = pv("offRx");
+    int offRy = pv("offRy");
+
     pushStyle();
     stroke(#000000);
     noFill();
@@ -157,28 +164,31 @@ public abstract class Drawable implements IDrawable, ISelectable {
     if (isSelected()) {
       stroke(#ff0000);
       strokeWeight(3);
-      rect(pv("x")+rx, pv("y")+ry, pv("w"), pv("h")); // draw including relative offset
+      rect(pv("x")+offRx, 
+        pv("y")+offRy, 
+        pv("w"), pv("h")); // draw including relative offset
     }
-
-
+    
     popStyle();
   }
-
-
 
   // getter
   public String getName() {
     return name;
   }
+  
   public int getAbsoluteX() {
-    return pv("x") + rx;
+    return pv("x") + pv("offRx");
   }
+  
   public int getAbsoluteY() {
-    return pv("y") + ry;
+    return pv("y") + pv("offRy");
   }
+  
   public int getWidth() {
     return pv("w");
   }
+  
   public int getHeight() {
     return pv("h");
   }
