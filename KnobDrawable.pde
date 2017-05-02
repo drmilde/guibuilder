@@ -13,10 +13,10 @@ public class KnobDrawable extends Drawable {
       "<name label=\"" + name + "\">"  + name + "</name>" + "\n" +
 
       "<position " +  
-      "x=\"" + x + "\"" +
-      "y=\"" + y + "\"" + 
-      "w=\"" + w + "\"" + 
-      "h=\"" + h + "\"" + 
+      "x=\"" + pv("x") + "\"" +
+      "y=\"" + pv("y") + "\"" + 
+      "w=\"" + pv("w") + "\"" + 
+      "h=\"" + pv("h") + "\"" + 
       "</position>" + "\n" +
 
       "</widget>"
@@ -25,7 +25,7 @@ public class KnobDrawable extends Drawable {
   }
 
   public Drawable clone() {
-    return new KnobDrawable(x, y, w, h, ux, uy);
+    return new KnobDrawable(pv("x"), pv("y"), pv("w"), pv("h"), ux, uy);
   }
 
 
@@ -39,7 +39,7 @@ public class KnobDrawable extends Drawable {
     strokeWeight(2);
     //ellipse(x + w/2, y + h/2, w, h);
     imageMode(CENTER);
-    image(img, x+(w/2)+rx, y+ (h/2)+ry, w, h);
+    image(img, pv("x")+(pv("w")/2)+rx, pv("y")+ (pv("h")/2)+ry, pv("w"), pv("h"));
     popStyle();
   }
 }
@@ -62,10 +62,10 @@ public class LabelDrawable extends Drawable {
       "<name label=\"" + name + "\">"  + name + "</name>" + "\n" +
 
       "<position " +  
-      "x=\"" + x + "\"" +
-      "y=\"" + y + "\"" + 
-      "w=\"" + w + "\"" + 
-      "h=\"" + h + "\"" + 
+      "x=\"" + pv("x") + "\"" +
+      "y=\"" + pv("y") + "\"" + 
+      "w=\"" + pv("w") + "\"" + 
+      "h=\"" + pv("h") + "\"" + 
       "</position>" + "\n" +
 
       "</widget>"
@@ -73,7 +73,7 @@ public class LabelDrawable extends Drawable {
   }
 
   public Drawable clone() {
-    return new LabelDrawable(text, x, y, w, h, ux, uy);
+    return new LabelDrawable(text, pv("x"), pv("y"), pv("w"), pv("h"), ux, uy);
   }
 
   public void draw() {
@@ -83,7 +83,7 @@ public class LabelDrawable extends Drawable {
     stroke(#ffffff);
     fill(#ffffff);
     textAlign(CENTER);
-    text(text, x + (w/2) + rx, y + (h/2)+ ry);
+    text(text, pv("x") + (pv("w")/2) + rx, pv("y") + (pv("h")/2)+ ry);
     popStyle();
   }
 }
@@ -106,10 +106,10 @@ public class ButtonDrawable extends Drawable {
       "<name label=\"" + name + "\">"  + name + "</name>" + "\n" +
 
       "<position " +  
-      "x=\"" + x + "\"" +
-      "y=\"" + y + "\"" + 
-      "w=\"" + w + "\"" + 
-      "h=\"" + h + "\"" + 
+      "x=\"" + pv("x") + "\"" +
+      "y=\"" + pv("y") + "\"" + 
+      "w=\"" + pv("w") + "\"" + 
+      "h=\"" + pv("h") + "\"" + 
       "</position>" + "\n" +
 
       "<states>" + "\n" +
@@ -124,7 +124,7 @@ public class ButtonDrawable extends Drawable {
   }
 
   public Drawable clone() {
-    return new ButtonDrawable(x, y, w, h, ux, uy);
+    return new ButtonDrawable(pv("x"), pv("y"), pv("w"), pv("h"), ux, uy);
   }
 
 
@@ -138,7 +138,9 @@ public class ButtonDrawable extends Drawable {
     strokeWeight(2);
     //ellipse(x + w/2, y + h/2, w, h);
     imageMode(CENTER);
-    image(img, x+(w/2) + rx, y+ (h/2) + ry, w, h);
+    image(img, pv("x")+(pv("w")/2) + rx, 
+      pv("y")+ (pv("h")/2) + ry, 
+      pv("w"), pv("h"));
     popStyle();
   }
 }
@@ -161,10 +163,10 @@ public class HSliderDrawable extends Drawable {
       "<name label=\"" + name + "\">"  + name + "</name>" + "\n" +
 
       "<position " +  
-      "x=\"" + x + "\"" +
-      "y=\"" + y + "\"" + 
-      "w=\"" + w + "\"" + 
-      "h=\"" + h + "\"" + 
+      "x=\"" + pv("x") + "\"" +
+      "y=\"" + pv("y") + "\"" + 
+      "w=\"" + pv("w") + "\"" + 
+      "h=\"" + pv("h") + "\"" + 
       "</position>" + "\n" +
 
       "</widget>"
@@ -172,7 +174,7 @@ public class HSliderDrawable extends Drawable {
   }
 
   public Drawable clone() {
-    return new HSliderDrawable(x, y, w, h, ux, uy);
+    return new HSliderDrawable(pv("x"), pv("y"), pv("w"), pv("h"), ux, uy);
   }
 
 
@@ -186,7 +188,9 @@ public class HSliderDrawable extends Drawable {
     strokeWeight(2);
     //ellipse(x + w/2, y + h/2, w, h);
     imageMode(CENTER);
-    image(img, x+(w/2) + rx, y+ (h/2) + ry, w, 20);
+    image(img, pv("x")+(pv("w")/2) + rx, 
+      pv("y") + (pv("h")/2) + ry, 
+      pv("w"), 20);
     popStyle();
   }
 }
@@ -210,10 +214,10 @@ public class VSliderDrawable extends Drawable {
       "<name label=\"" + name + "\">"  + name + "</name>" + "\n" +
 
       "<position " +  
-      "x=\"" + x + "\"" +
-      "y=\"" + y + "\"" + 
-      "w=\"" + w + "\"" + 
-      "h=\"" + h + "\"" + 
+      "x=\"" + pv("x") + "\"" +
+      "y=\"" + pv("y") + "\"" + 
+      "w=\"" + pv("w") + "\"" + 
+      "h=\"" + pv("h") + "\"" + 
       "</position>" + "\n" +
 
       "</widget>"
@@ -221,7 +225,7 @@ public class VSliderDrawable extends Drawable {
   }
 
   public Drawable clone() {
-    return new VSliderDrawable(x, y, w, h, ux, uy);
+    return new VSliderDrawable(pv("x"), pv("y"), pv("w"), pv("h"), ux, uy);
   }
 
 
@@ -235,7 +239,9 @@ public class VSliderDrawable extends Drawable {
     strokeWeight(2);
     //ellipse(x + w/2, y + h/2, w, h);
     imageMode(CENTER);
-    image(img, x+(w/2) + rx, y+ (h/2) + ry, 20, h);
+    image(img, pv("x")+(pv("w")/2) + rx, 
+      pv("y") + (pv("h")/2) + ry, 
+      20, pv("h"));
     popStyle();
   }
 }
