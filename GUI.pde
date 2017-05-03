@@ -282,7 +282,14 @@ public void dispatchButtons(GButton button) {
   }
   // File output selection
   else if (button == btnOutput) {
+    
     fname = G4P.selectOutput("Export to ...");
+    if (fname != null) {
+      exportXML(fname);
+    } else  {
+      println ("file name is empty");
+    }
+    
   }
   // horizontal align selection
   else if (button == btnHorizontal) {

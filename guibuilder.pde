@@ -50,7 +50,6 @@ void setup() {
   int nwdth = 200;
   createPropertyPanel(width - nwdth - 2, ursprung_y, 
     nwdth, height - 2 - ursprung_y, 6);
-    
 }
 
 
@@ -195,6 +194,8 @@ void update() {
 
   if (state == 7) { // export to xml
     println (items.toXML());
+
+
     state = 0;
   }
 
@@ -395,6 +396,17 @@ public void keyPressed() {
     if (char(keyCode) == 'N') {
       ctrlKey = 'n';
     }
+  }
+}
+
+// export to xml
+public void exportXML(String fname) {
+  XML xml = parseXML(items.toXML());
+  
+  if (xml == null) {
+    println("XML could not be parsed.");
+  } else {
+    saveXML(xml, fname);
   }
 }
 
