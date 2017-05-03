@@ -214,28 +214,21 @@ public abstract class Drawable implements IDrawable, ISelectable {
   public String getName() {
     return pvS("name");
   }
-
   public int getAbsoluteX() {
     return pv("x") + pv("offRx");
   }
-
   public int getAbsoluteY() {
     return pv("y") + pv("offRy");
   }
-
   public int getWidth() {
     return pv("w");
   }
-
   public int getHeight() {
     return pv("h");
   }
-
   public String getState(String sname) {
     return pvS(sname);
   }
-
-
   public float getMinRange() {
     return pvF("min");
   }
@@ -246,6 +239,5 @@ public abstract class Drawable implements IDrawable, ISelectable {
   public String getLabelText() {
     return pvS("text");
   }
-
 
 }

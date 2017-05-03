@@ -1,8 +1,10 @@
 // Controls used for file dialog GUI 
-GLabel title;
-GButton btnFolder, btnInput, btnOutput;
+GButton btnExit, btnInput, btnOutput;
+GButton btnHorizontal, btnVertical; 
 
 // property fields
+GLabel title;
+
 GLabel nameLabel;
 GTextField nameTextField;
 GLabel xLabel;
@@ -42,9 +44,10 @@ ArrayList<Rectangle> rects ;
 ///////////////////// G4P
 
 public void showPropertyPanel(boolean show) {
-  btnFolder.setVisible(show);
-  btnInput.setVisible(show);
-  btnOutput.setVisible(show);
+  //btnFolder.setVisible(show);
+  //btnInput.setVisible(show);
+  //btnOutput.setVisible(show);
+
   title.setVisible(show);
 
   nameLabel.setVisible(show);
@@ -85,27 +88,8 @@ public void showPropertyPanel(boolean show) {
   }
 }
 
-public void setCursorOver(int cr) {
-  btnFolder.setCursorOver(cr);
-  btnInput.setCursorOver(cr);
-  btnOutput.setCursorOver(cr);
-  title.setCursorOver(cr);
 
-  nameLabel.setCursorOver(cr);
-  nameTextField.setCursorOver(cr);
-  xLabel.setCursorOver(cr);
-  xTextField.setCursorOver(cr);
-  yLabel.setCursorOver(cr);
-  yTextField.setCursorOver(cr);
-  wLabel.setCursorOver(cr);
-  wTextField.setCursorOver(cr);
-  hLabel.setCursorOver(cr);
-  hTextField.setCursorOver(cr);
-}
-
-
-
-public void createFileSystemGUI(int x, int y, int w, int h, int border) {
+public void createPropertyPanel(int x, int y, int w, int h, int border) {
   // Store picture frame
   rects.add(new Rectangle(x, y, w, h));
 
@@ -120,15 +104,20 @@ public void createFileSystemGUI(int x, int y, int w, int h, int border) {
   title.setOpaque(true);
   title.setTextBold();
 
+  createPropertyFields(x, y - 140, w);
+}
+
+public void createToolBar(int x, int y, int w, int h) {
   // Create buttons
   int bgap = 8;
   int bw = round((w - 2 * bgap) / 3.0f);
   int bs = bgap + bw;
-  btnFolder = new GButton(this, x, y+30, bw, 20, "Folder");
-  btnInput = new GButton(this, x+bs, y+30, bw, 20, "Input");
-  btnOutput = new GButton(this, x+2*bs, y+30, bw, 20, "export");
 
-  createPropertyFields(x, y - 120, w);
+  btnExit = new GButton(this, x, y, bw, h, "Exit");
+  btnInput = new GButton(this, x+bs, y, bw, h, "Open");
+  btnOutput = new GButton(this, x+2*bs, y, bw, h, "Export");
+  btnHorizontal = new GButton(this, x+3*bs, y, bw, h, "Horizontal");
+  btnVertical = new GButton(this, x+4*bs, y, bw, h, "Vertical");
 }
 
 
@@ -260,9 +249,8 @@ public void showFrame(Rectangle r) {
 
 // Button Event processing
 public void handleButtonEvents(GButton button, GEvent event) { 
-  // Folder selection
-  if (button == btnFolder || button == btnInput || button == btnOutput)
-    displayFileDialog(button);
+  // Button selection
+  dispatchButtons(button);
 }
 
 public void handleTextEvents(GEditableTextControl textControl, GEvent event) { 
@@ -271,20 +259,24 @@ public void handleTextEvents(GEditableTextControl textControl, GEvent event) {
 
 
 // G4P code for folder and file dialogs
-public void displayFileDialog(GButton button) {
+public void dispatchButtons(GButton button) {
   String fname;
-  // Folder selection
-  if (button == btnFolder) {
-    fname = G4P.selectFolder("Folder Dialog");
+
+  // exit application
+  if (button == btnExit) {
+    println ("exit");
+    exit();
   }
+
+
   // File input selection
   else if (button == btnInput) {
     // Use file filter if possible
-    fname = G4P.selectInput("Input Dialog", "png,gif,jpg,jpeg", "Image files");
+    fname = G4P.selectInput("Open file");
   }
   // File output selection
   else if (button == btnOutput) {
-    fname = G4P.selectOutput("export to ... ");
+    fname = G4P.selectOutput("Export to ...");
   }
 }
 

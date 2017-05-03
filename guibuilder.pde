@@ -43,11 +43,14 @@ void setup() {
   catalog.add(new VSliderDrawable(10, ursprung_y + 290, 60, 60, 0, 0));
 
   // controls in G4P
+  createToolBar(100, 10, 400, 40);
 
+  // Property Panel
   rects = new ArrayList<Rectangle> ();
   int nwdth = 200;
-  createFileSystemGUI(width- nwdth - 2, ursprung_y, 
+  createPropertyPanel(width - nwdth - 2, ursprung_y, 
     nwdth, height - 2 - ursprung_y, 6);
+    
 }
 
 
@@ -394,7 +397,6 @@ public void keyPressed() {
     }
   }
 }
-
 
 // property panel update
 

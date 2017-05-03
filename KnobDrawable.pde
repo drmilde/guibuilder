@@ -105,8 +105,6 @@ public class LabelDrawable extends Drawable {
 }
 
 //////////////////// BUTTON
-
-
 public class ButtonDrawable extends Drawable {
 
   public ButtonDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_) {
@@ -117,7 +115,6 @@ public class ButtonDrawable extends Drawable {
     putSProperty("state2", "bState2");
     putSProperty("state3", "bState3");
     putSProperty("state4", "bState4");
-    
   }
 
   // implement abstract methods
@@ -173,7 +170,6 @@ public class ButtonDrawable extends Drawable {
 
 
 ///////////////////// HSLIDER
-
 public class HSliderDrawable extends Drawable {
 
   public HSliderDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_) {
