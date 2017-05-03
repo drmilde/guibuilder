@@ -2,6 +2,7 @@
 GButton btnExit, btnInput, btnOutput;
 GButton btnHorizontal, btnVertical; 
 GButton spreadHorizontal, spreadVertical; 
+GButton unspreadHorizontal, unspreadVertical; 
 
 // property fields
 GLabel title;
@@ -119,8 +120,10 @@ public void createToolBar(int x, int y, int w, int h) {
   btnOutput = new GButton(this, x+2*bs, y, bw, h, "Export");
   btnHorizontal = new GButton(this, x+3*bs, y, bw, h, "Horizontal");
   btnVertical = new GButton(this, x+4*bs, y, bw, h, "Vertical");
-  spreadHorizontal = new GButton(this, x+5*bs, y, bw, h, "spread h");
-  spreadVertical = new GButton(this, x+6*bs, y, bw, h, "spread v");
+  spreadHorizontal = new GButton(this, x+5*bs, y, bw, h, "[h +]");
+  unspreadHorizontal = new GButton(this, x+6*bs, y, bw, h, "[h -]");
+  spreadVertical = new GButton(this, x+7*bs, y, bw, h, "[v +]");
+  unspreadVertical = new GButton(this, x+8*bs, y, bw, h, "[v -]");
 }
 
 
@@ -306,10 +309,20 @@ public void dispatchButtons(GButton button) {
     println("spread HORIZONTAL ...");
     items.spreadHorizontal(gridSize, gridSize);
   }
-  // vertical align selection
+  // spread vertical selection
   else if (button == spreadVertical) {
     println("spread VERTICAL ...");
     items.spreadVertical(gridSize, gridSize);
+  }
+  // unspread horizontal selection
+  else if (button == unspreadHorizontal) {
+    println("unspread HORIZONTAL ...");
+    items.spreadHorizontal(-gridSize, gridSize);
+  }
+  // unspread vertical selection
+  else if (button == unspreadVertical) {
+    println("unspread VERTICAL ...");
+    items.spreadVertical(-gridSize, gridSize);
   }
 }
 
