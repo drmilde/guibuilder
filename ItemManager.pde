@@ -114,7 +114,6 @@ public class ItemManager {
     }
   }
 
-
   public void alignHorizontal(int gs) {
     Drawable fd = getFirstSelected();
     if (fd != null) {
@@ -134,6 +133,50 @@ public class ItemManager {
       }
     }
   }
+
+  // spread horizontal
+  public void spreadHorizontal(int incr, int gs) {
+    for (Drawable d : items) {
+      if (d.isSelected()) {
+        d.updateAbsolutePos(gs);
+      }
+    }
+
+    // update x position
+    int fak = 0;
+    for (Drawable d : items) {
+      if (d.isSelected()) {
+        d.setAbsolutePos(d.getAbsoluteX() + (fak * incr), 
+          d.getAbsoluteY(), gs);
+        fak++;
+      }
+    }
+  }
+
+
+  // spread vertical
+  public void spreadVertical(int incr, int gs) {
+    for (Drawable d : items) {
+      if (d.isSelected()) {
+        d.updateAbsolutePos(gs);
+      }
+    }
+
+    // update y position
+    int fak = 0;
+    for (Drawable d : items) {
+      if (d.isSelected()) {
+        d.setAbsolutePos(
+          d.getAbsoluteX(), 
+          d.getAbsoluteY() + (fak * incr), 
+          gs);
+        fak++;
+      }
+    }
+  }
+
+
+
 
   public void removeSelected() {
     for (int i = items.size() - 1; i >= 0; i--) {
