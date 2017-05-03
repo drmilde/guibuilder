@@ -20,6 +20,7 @@ GLabel maxRangeLabel;
 GTextField maxRangeTextField;
 
 
+// button states
 GLabel state1Label;
 GTextField state1TextField;
 GLabel state2Label;
@@ -28,6 +29,11 @@ GLabel state3Label;
 GTextField state3TextField;
 GLabel state4Label;
 GTextField state4TextField;
+
+// text content of label
+GLabel labelTextLabel;
+GTextField labelTextTextField;
+
 
 
 // Graphic frames used to group controls
@@ -65,6 +71,10 @@ public void showPropertyPanel(boolean show) {
   state3TextField.setVisible(show);
   state4Label.setVisible(show);
   state4TextField.setVisible(show);
+
+  labelTextLabel.setVisible(show);
+  labelTextTextField.setVisible(show);
+
   /*
    */
 
@@ -118,7 +128,7 @@ public void createFileSystemGUI(int x, int y, int w, int h, int border) {
   btnInput = new GButton(this, x+bs, y+30, bw, 20, "Input");
   btnOutput = new GButton(this, x+2*bs, y+30, bw, 20, "export");
 
-  createPropertyFields(x, y - 110, w);
+  createPropertyFields(x, y - 120, w);
 }
 
 
@@ -215,7 +225,7 @@ private void createPropertyFields(int x, int y, int w) {
   state3TextField = new GTextField(this, x, y + 550, w, 20);
   state3TextField.tag = "state 3 tf";
   //hTextField.setPromptText("Text field 1");
-  
+
   state4Label = new GLabel(this, x, y + 570, w, 20);
   state4Label.setText("state 4", GAlign.LEFT, GAlign.MIDDLE);
   state4Label.setOpaque(true);
@@ -225,7 +235,14 @@ private void createPropertyFields(int x, int y, int w) {
   state4TextField.tag = "state 4 tf";
   //hTextField.setPromptText("Text field 1");
 
+  labelTextLabel = new GLabel(this, x, y + 610, w, 20);
+  labelTextLabel.setText("Text", GAlign.LEFT, GAlign.MIDDLE);
+  labelTextLabel.setOpaque(true);
+  labelTextLabel.setTextBold();
 
+  labelTextTextField = new GTextField(this, x, y + 630, w, 20);
+  labelTextTextField.tag = "text label tf";
+  //hTextField.setPromptText("Text field 1");
 }
 
 // Simple graphical frame to group controls
@@ -293,22 +310,25 @@ public void displayTextEvent(String name, GEvent event) {
 
 void setFields(Drawable d) {
   if (d != null) {
-    
+
     // name, position and dimensions
     nameTextField.setText(d.getName());
     xTextField.setText(d.getAbsoluteX() + "");
     yTextField.setText(d.getAbsoluteY() + "");
     wTextField.setText(d.getWidth() + "");
     hTextField.setText(d.getHeight() + "");
-    
+
     // min max of slider
     minRangeTextField.setText(d.getMinRange() + "");
     maxRangeTextField.setText(d.getMaxRange() + "");
-    
+
     // possible state of a button, default is four 
     state1TextField.setText(d.getState("state1") + "");
     state2TextField.setText(d.getState("state2") + "");
     state3TextField.setText(d.getState("state3") + "");
     state4TextField.setText(d.getState("state4") + "");
+
+    // label text
+    labelTextTextField.setText(d.getLabelText() + "");
   }
 }

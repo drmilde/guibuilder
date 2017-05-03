@@ -13,10 +13,10 @@ public class KnobDrawable extends Drawable {
       "<name label=\"" + pvS("name") + "\">"  + pvS("name") + "</name>" + "\n" +
 
       "<position " +  
-      "x=\"" + pv("x") + "\"" +
-      "y=\"" + pv("y") + "\"" + 
-      "w=\"" + pv("w") + "\"" + 
-      "h=\"" + pv("h") + "\"" + 
+      "x=\"" + pv("x") + "\" " +
+      "y=\"" + pv("y") + "\" " + 
+      "w=\"" + pv("w") + "\" " + 
+      "h=\"" + pv("h") + "\">" + 
       "</position>" + "\n" +
 
       "</widget>"
@@ -61,19 +61,20 @@ public class LabelDrawable extends Drawable {
     super(x_, y_, w_, h_, ux_, uy_);
     text = txt_;
     putSProperty("name", "Label" + IDGen.next());
+    putSProperty("text", text);
   }
 
   // implement abstract methods
   public String toXML() {
     return (
       "<widget type=\"label\">" + "\n" +  
-      "<name label=\"" + pvS("name") + "\">"  + pvS("name") + "</name>" + "\n" +
+      "<name label=\"" + pvS("text") + "\">"  + pvS("name") + "</name>" + "\n" +
 
       "<position " +  
-      "x=\"" + pv("x") + "\"" +
-      "y=\"" + pv("y") + "\"" + 
-      "w=\"" + pv("w") + "\"" + 
-      "h=\"" + pv("h") + "\"" + 
+      "x=\"" + pv("x") + "\" " +
+      "y=\"" + pv("y") + "\" " + 
+      "w=\"" + pv("w") + "\" " + 
+      "h=\"" + pv("h") + "\">" + 
       "</position>" + "\n" +
 
       "</widget>"
@@ -126,10 +127,10 @@ public class ButtonDrawable extends Drawable {
       "<name label=\"" + pvS("name") + "\">"  + pvS("name") + "</name>" + "\n" +
 
       "<position " +  
-      "x=\"" + pv("x") + "\"" +
-      "y=\"" + pv("y") + "\"" + 
-      "w=\"" + pv("w") + "\"" + 
-      "h=\"" + pv("h") + "\"" + 
+      "x=\"" + pv("x") + "\" " +
+      "y=\"" + pv("y") + "\" " + 
+      "w=\"" + pv("w") + "\" " + 
+      "h=\"" + pv("h") + "\">" + 
       "</position>" + "\n" +
 
       "<states>" + "\n" +
@@ -190,10 +191,10 @@ public class HSliderDrawable extends Drawable {
       "<name label=\"" + pvS("name") + "\">"  + pvS("name") + "</name>" + "\n" +
 
       "<position " +  
-      "x=\"" + pv("x") + "\"" +
-      "y=\"" + pv("y") + "\"" + 
-      "w=\"" + pv("w") + "\"" + 
-      "h=\"" + pv("h") + "\"" + 
+      "x=\"" + pv("x") + "\" " +
+      "y=\"" + pv("y") + "\" " + 
+      "w=\"" + pv("w") + "\" " + 
+      "h=\"" + pv("h") + "\">" + 
       "</position>" + "\n" +
 
       "</widget>"
@@ -248,10 +249,10 @@ public class VSliderDrawable extends Drawable {
       "<name label=\"" + pvS("name") + "\">"  + pvS("name") + "</name>" + "\n" +
 
       "<position " +  
-      "x=\"" + pv("x") + "\"" +
-      "y=\"" + pv("y") + "\"" + 
-      "w=\"" + pv("w") + "\"" + 
-      "h=\"" + pv("h") + "\"" + 
+      "x=\"" + pv("x") + "\" " +
+      "y=\"" + pv("y") + "\" " + 
+      "w=\"" + pv("w") + "\" " + 
+      "h=\"" + pv("h") + "\">" + 
       "</position>" + "\n" +
 
       "</widget>"

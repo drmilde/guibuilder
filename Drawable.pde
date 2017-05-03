@@ -242,4 +242,10 @@ public abstract class Drawable implements IDrawable, ISelectable {
   public float getMaxRange() {
     return pvF("max");
   }
+
+  public String getLabelText() {
+    return pvS("text");
+  }
+
+
 }
