@@ -265,18 +265,31 @@ public void dispatchButtons(GButton button) {
   // exit application
   if (button == btnExit) {
     println ("exit");
-    exit();
+
+    int result = G4P.selectOption(this, "Exit application? (work is NOT saved)", "Bye Bye", 
+      G4P.QUERY, G4P.YES_NO);
+
+    if (result == G4P.OK) {
+      exit();
+    }
   }
-
-
   // File input selection
   else if (button == btnInput) {
-    // Use file filter if possible
     fname = G4P.selectInput("Open file");
   }
   // File output selection
   else if (button == btnOutput) {
     fname = G4P.selectOutput("Export to ...");
+  }
+  // horizontal align selection
+  else if (button == btnHorizontal) {
+    println("HORIZONTAL ...");
+    items.alignHorizontal(gridSize);
+  }
+  // vertical align selection
+  else if (button == btnVertical) {
+    println("VERTICAL ...");
+    items.alignVertical(gridSize);
   }
 }
 

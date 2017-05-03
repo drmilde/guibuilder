@@ -94,6 +94,47 @@ public class ItemManager {
     }
   }
 
+  public void alignVertical(int gs) {
+    Drawable fd = getFirstSelected();
+    if (fd != null) {
+      int minx = fd.getAbsoluteX();
+      for (Drawable d : items) {
+        if (d.isSelected()) {
+          d.updateAbsolutePos(gs);
+          minx = min (d.getAbsoluteX(), minx);
+        }
+      }
+
+      // update x position
+      for (Drawable d : items) {
+        if (d.isSelected()) {
+          d.setAbsolutePos(minx, d.getAbsoluteY(), gs);
+        }
+      }
+    }
+  }
+
+
+  public void alignHorizontal(int gs) {
+    Drawable fd = getFirstSelected();
+    if (fd != null) {
+      int miny = fd.getAbsoluteY();
+      for (Drawable d : items) {
+        if (d.isSelected()) {
+          d.updateAbsolutePos(gs);
+          miny = min (d.getAbsoluteY(), miny);
+        }
+      }
+
+      // update x position
+      for (Drawable d : items) {
+        if (d.isSelected()) {
+          d.setAbsolutePos(d.getAbsoluteX(), miny, gs);
+        }
+      }
+    }
+  }
+
   public void removeSelected() {
     for (int i = items.size() - 1; i >= 0; i--) {
       Drawable d = items.get(i);
