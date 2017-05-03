@@ -18,7 +18,7 @@ public abstract class Drawable implements IDrawable, ISelectable {
   public Drawable(int x_, int y_, int w_, int h_, int ux_, int uy_) {
     // create properties
     pm.put("name", new Property ("name", "noName"));
-    
+
     pm.put("x", new Property ("x", 0));
     pm.put("y", new Property ("y", 0));
     pm.put("w", new Property ("w", 0));
@@ -45,6 +45,20 @@ public abstract class Drawable implements IDrawable, ISelectable {
     if (prop != null) {
       prop.setIValue(val);
       pm.put(att, prop);
+    } else {
+      // create property
+      pm.put(att, new Property (att, val));
+    }
+  }
+
+  protected void putFProperty(String att, float val) {
+    Property prop = pm.get(att);
+    if (prop != null) {
+      prop.setFValue(val);
+      pm.put(att, prop);
+    } else {
+      // create property
+      pm.put(att, new Property (att, val));
     }
   }
 
@@ -53,9 +67,12 @@ public abstract class Drawable implements IDrawable, ISelectable {
     if (prop != null) {
       prop.setSValue(val);
       pm.put(att, prop);
+    } else {
+      // create property
+      pm.put(att, new Property (att, val));
     }
   }
-  
+
   public Property getProperty(String att) {
     return pm.get(att);
   }
@@ -68,6 +85,14 @@ public abstract class Drawable implements IDrawable, ISelectable {
     return 0;
   }
 
+  protected float pvF(String att) {
+    Property prop = pm.get(att);
+    if (prop != null) {
+      return prop.getFValue();
+    }
+    return 0;
+  }
+  
   protected String pvS(String att) {
     Property prop = pm.get(att);
     if (prop != null) {
@@ -181,7 +206,7 @@ public abstract class Drawable implements IDrawable, ISelectable {
         pv("y")+offRy, 
         pv("w"), pv("h")); // draw including relative offset
     }
-    
+
     popStyle();
   }
 
@@ -189,20 +214,32 @@ public abstract class Drawable implements IDrawable, ISelectable {
   public String getName() {
     return pvS("name");
   }
-  
+
   public int getAbsoluteX() {
     return pv("x") + pv("offRx");
   }
-  
+
   public int getAbsoluteY() {
     return pv("y") + pv("offRy");
   }
-  
+
   public int getWidth() {
     return pv("w");
   }
-  
+
   public int getHeight() {
     return pv("h");
+  }
+
+  public String getState(String sname) {
+    return pvS(sname);
+  }
+
+
+  public float getMinRange() {
+    return pvF("min");
+  }
+  public float getMaxRange() {
+    return pvF("max");
   }
 }

@@ -1,10 +1,6 @@
 // Controls used for file dialog GUI 
 GLabel title;
 GButton btnFolder, btnInput, btnOutput;
-GLabel lblFile;
-
-// Textfeld
-GTextField txf1;
 
 // property fields
 GLabel nameLabel;
@@ -18,6 +14,22 @@ GTextField wTextField;
 GLabel hLabel;
 GTextField hTextField;
 
+GLabel minRangeLabel;
+GTextField minRangeTextField;
+GLabel maxRangeLabel;
+GTextField maxRangeTextField;
+
+
+GLabel state1Label;
+GTextField state1TextField;
+GLabel state2Label;
+GTextField state2TextField;
+GLabel state3Label;
+GTextField state3TextField;
+GLabel state4Label;
+GTextField state4TextField;
+
+
 // Graphic frames used to group controls
 ArrayList<Rectangle> rects ;
 
@@ -27,9 +39,7 @@ public void showPropertyPanel(boolean show) {
   btnFolder.setVisible(show);
   btnInput.setVisible(show);
   btnOutput.setVisible(show);
-  lblFile.setVisible(show);
   title.setVisible(show);
-  txf1.setVisible(show);
 
   nameLabel.setVisible(show);
   nameTextField.setVisible(show);
@@ -41,6 +51,22 @@ public void showPropertyPanel(boolean show) {
   wTextField.setVisible(show);
   hLabel.setVisible(show);
   hTextField.setVisible(show);
+  minRangeLabel.setVisible(show);
+  minRangeTextField.setVisible(show);
+  maxRangeLabel.setVisible(show);
+  maxRangeTextField.setVisible(show);
+
+
+  state1Label.setVisible(show);
+  state1TextField.setVisible(show);
+  state2Label.setVisible(show);
+  state2TextField.setVisible(show);
+  state3Label.setVisible(show);
+  state3TextField.setVisible(show);
+  state4Label.setVisible(show);
+  state4TextField.setVisible(show);
+  /*
+   */
 
   if (show) {
     for (Rectangle r : rects) {
@@ -48,6 +74,25 @@ public void showPropertyPanel(boolean show) {
     }
   }
 }
+
+public void setCursorOver(int cr) {
+  btnFolder.setCursorOver(cr);
+  btnInput.setCursorOver(cr);
+  btnOutput.setCursorOver(cr);
+  title.setCursorOver(cr);
+
+  nameLabel.setCursorOver(cr);
+  nameTextField.setCursorOver(cr);
+  xLabel.setCursorOver(cr);
+  xTextField.setCursorOver(cr);
+  yLabel.setCursorOver(cr);
+  yTextField.setCursorOver(cr);
+  wLabel.setCursorOver(cr);
+  wTextField.setCursorOver(cr);
+  hLabel.setCursorOver(cr);
+  hTextField.setCursorOver(cr);
+}
+
 
 
 public void createFileSystemGUI(int x, int y, int w, int h, int border) {
@@ -61,7 +106,7 @@ public void createFileSystemGUI(int x, int y, int w, int h, int border) {
   h -= 2*border;
 
   title = new GLabel(this, x, y, w, 20);
-  title.setText("File system dialogs", GAlign.LEFT, GAlign.MIDDLE);
+  title.setText("Properties", GAlign.LEFT, GAlign.MIDDLE);
   title.setOpaque(true);
   title.setTextBold();
 
@@ -71,21 +116,15 @@ public void createFileSystemGUI(int x, int y, int w, int h, int border) {
   int bs = bgap + bw;
   btnFolder = new GButton(this, x, y+30, bw, 20, "Folder");
   btnInput = new GButton(this, x+bs, y+30, bw, 20, "Input");
-  btnOutput = new GButton(this, x+2*bs, y+30, bw, 20, "Output");
+  btnOutput = new GButton(this, x+2*bs, y+30, bw, 20, "export");
 
-  lblFile = new GLabel(this, x, y+60, w, 60);
-  lblFile.setTextAlign(GAlign.LEFT, GAlign.MIDDLE);
-  lblFile.setOpaque(true);
-  lblFile.setLocalColorScheme(G4P.GREEN_SCHEME);
+  createPropertyFields(x, y - 110, w);
+}
 
 
-  /// Textfield
-  txf1 = new GTextField(this, x, y + 130, w, 20);
-  txf1.tag = "txf1 - juppie duh";
-  txf1.setPromptText("Text field 1");
-
+private void createPropertyFields(int x, int y, int w) {  
   // propertyfields
-  nameLabel = new GLabel(this, x, y +170, w, 20);
+  nameLabel = new GLabel(this, x, y + 170, w, 20);
   nameLabel.setText("Name", GAlign.LEFT, GAlign.MIDDLE);
   nameLabel.setOpaque(true);
   nameLabel.setTextBold();
@@ -129,6 +168,64 @@ public void createFileSystemGUI(int x, int y, int w, int h, int border) {
   hTextField = new GTextField(this, x, y + 350, w, 20);
   hTextField.tag = "h pos tf";
   //hTextField.setPromptText("Text field 1");
+
+  minRangeLabel = new GLabel(this, x, y + 370, w, 20);
+  minRangeLabel.setText("min", GAlign.LEFT, GAlign.MIDDLE);
+  minRangeLabel.setOpaque(true);
+  minRangeLabel.setTextBold();
+
+  minRangeTextField = new GTextField(this, x, y + 390, w, 20);
+  minRangeTextField.tag = "min range tf";
+  //hTextField.setPromptText("Text field 1");
+
+  maxRangeLabel = new GLabel(this, x, y + 410, w, 20);
+  maxRangeLabel.setText("max", GAlign.LEFT, GAlign.MIDDLE);
+  maxRangeLabel.setOpaque(true);
+  maxRangeLabel.setTextBold();
+
+  maxRangeTextField = new GTextField(this, x, y + 430, w, 20);
+  maxRangeTextField.tag = "max range tf";
+  //hTextField.setPromptText("Text field 1");
+
+
+  state1Label = new GLabel(this, x, y + 450, w, 20);
+  state1Label.setText("state 1", GAlign.LEFT, GAlign.MIDDLE);
+  state1Label.setOpaque(true);
+  state1Label.setTextBold();
+
+  state1TextField = new GTextField(this, x, y + 470, w, 20);
+  state1TextField.tag = "state 1 tf";
+  //hTextField.setPromptText("Text field 1");
+
+
+  state2Label = new GLabel(this, x, y + 490, w, 20);
+  state2Label.setText("state 2", GAlign.LEFT, GAlign.MIDDLE);
+  state2Label.setOpaque(true);
+  state2Label.setTextBold();
+
+  state2TextField = new GTextField(this, x, y + 510, w, 20);
+  state2TextField.tag = "state 2 tf";
+  //hTextField.setPromptText("Text field 1");
+
+  state3Label = new GLabel(this, x, y + 530, w, 20);
+  state3Label.setText("state 3", GAlign.LEFT, GAlign.MIDDLE);
+  state3Label.setOpaque(true);
+  state3Label.setTextBold();
+
+  state3TextField = new GTextField(this, x, y + 550, w, 20);
+  state3TextField.tag = "state 3 tf";
+  //hTextField.setPromptText("Text field 1");
+  
+  state4Label = new GLabel(this, x, y + 570, w, 20);
+  state4Label.setText("state 4", GAlign.LEFT, GAlign.MIDDLE);
+  state4Label.setOpaque(true);
+  state4Label.setTextBold();
+
+  state4TextField = new GTextField(this, x, y + 590, w, 20);
+  state4TextField.tag = "state 4 tf";
+  //hTextField.setPromptText("Text field 1");
+
+
 }
 
 // Simple graphical frame to group controls
@@ -152,7 +249,7 @@ public void handleButtonEvents(GButton button, GEvent event) {
 }
 
 public void handleTextEvents(GEditableTextControl textControl, GEvent event) { 
-  displayEvent(textControl.tag, event);
+  displayTextEvent(textControl.tag, event);
 }
 
 
@@ -162,30 +259,27 @@ public void displayFileDialog(GButton button) {
   // Folder selection
   if (button == btnFolder) {
     fname = G4P.selectFolder("Folder Dialog");
-    lblFile.setText(fname);
   }
   // File input selection
   else if (button == btnInput) {
     // Use file filter if possible
     fname = G4P.selectInput("Input Dialog", "png,gif,jpg,jpeg", "Image files");
-    lblFile.setText(fname);
   }
   // File output selection
   else if (button == btnOutput) {
-    fname = G4P.selectOutput("Output Dialog");
-    lblFile.setText(fname);
+    fname = G4P.selectOutput("export to ... ");
   }
 }
 
 // display text events
 
-public void displayEvent(String name, GEvent event) {
+public void displayTextEvent(String name, GEvent event) {
   //print("name: \"" + name + "\"  ");
   switch(event) {
   case ENTERED: 
     {
-      println("ENTERED, " +txf1.getText());
-      txf1.setFocus(false);
+      println("ENTERED, " +xTextField.getText());
+      xTextField.setFocus(false);
       break;
     }
   default:
@@ -199,10 +293,22 @@ public void displayEvent(String name, GEvent event) {
 
 void setFields(Drawable d) {
   if (d != null) {
+    
+    // name, position and dimensions
     nameTextField.setText(d.getName());
     xTextField.setText(d.getAbsoluteX() + "");
     yTextField.setText(d.getAbsoluteY() + "");
     wTextField.setText(d.getWidth() + "");
     hTextField.setText(d.getHeight() + "");
+    
+    // min max of slider
+    minRangeTextField.setText(d.getMinRange() + "");
+    maxRangeTextField.setText(d.getMaxRange() + "");
+    
+    // possible state of a button, default is four 
+    state1TextField.setText(d.getState("state1") + "");
+    state2TextField.setText(d.getState("state2") + "");
+    state3TextField.setText(d.getState("state3") + "");
+    state4TextField.setText(d.getState("state4") + "");
   }
 }

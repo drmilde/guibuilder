@@ -112,6 +112,11 @@ public class ButtonDrawable extends Drawable {
     super(x_, y_, w_, h_, ux_, uy_);
     img = loadImage("button.png");
     putSProperty("name", "Button" + IDGen.next());
+    putSProperty("state1", "bState1");
+    putSProperty("state2", "bState2");
+    putSProperty("state3", "bState3");
+    putSProperty("state4", "bState4");
+    
   }
 
   // implement abstract methods
@@ -128,10 +133,10 @@ public class ButtonDrawable extends Drawable {
       "</position>" + "\n" +
 
       "<states>" + "\n" +
-      "<state>state1</state>" + "\n" +
-      "<state>state2</state>" + "\n" +
-      "<state>state3</state>" + "\n" +
-      "<state>state4</state>" + "\n" +
+      "<state>" + pvS("state1") + "</state>" + "\n" +
+      "<state>" + pvS("state2") + "</state>" + "\n" +
+      "<state>" + pvS("state3") + "</state>" + "\n" +
+      "<state>" + pvS("state4") + "</state>" + "\n" +
       "</states>" + "\n" +
 
       "</widget>"
@@ -174,6 +179,8 @@ public class HSliderDrawable extends Drawable {
     super(x_, y_, w_, h_, ux_, uy_);
     img = loadImage("hslider.png");
     putSProperty("name", "HSlider" + IDGen.next());
+    putFProperty("min", 0);
+    putFProperty("max", 1);
   }
 
   // implement abstract methods
@@ -230,6 +237,8 @@ public class VSliderDrawable extends Drawable {
     super(x_, y_, w_, h_, ux_, uy_);
     img = loadImage("vslider.png");
     putSProperty("name", "VSlider" + IDGen.next());
+    putFProperty("min", 0);
+    putFProperty("max", 1);
   }
 
   // implement abstract methods

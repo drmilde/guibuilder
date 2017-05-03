@@ -202,6 +202,7 @@ void update() {
 
   if (state == 9) { // box select
     cursor(CROSS); // set cursor to cross
+
     minBoxX = mouseX;
     minBoxY = mouseY;
     maxBoxX = mouseX;
