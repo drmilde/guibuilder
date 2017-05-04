@@ -41,6 +41,7 @@ public class ItemManager {
     for (Drawable d : items) {
       if (d.isOver(x, y)) {
         d.select(true);
+        return;
       }
     }
   }

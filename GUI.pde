@@ -285,14 +285,13 @@ public void dispatchButtons(GButton button) {
   }
   // File output selection
   else if (button == btnOutput) {
-    
+
     fname = G4P.selectOutput("Export to ...");
     if (fname != null) {
       exportXML(fname);
-    } else  {
+    } else {
       println ("file name is empty");
     }
-    
   }
   // horizontal align selection
   else if (button == btnHorizontal) {
@@ -327,14 +326,16 @@ public void dispatchButtons(GButton button) {
 }
 
 // display text events
-
 public void displayTextEvent(String name, GEvent event) {
   //print("name: \"" + name + "\"  ");
   switch(event) {
   case ENTERED: 
     {
-      println("ENTERED, " +xTextField.getText());
-      xTextField.setFocus(false);
+      if (name == "text label tf") { // 
+        println("ENTERED, " + labelTextTextField.getText());
+        storeSProperty("text", labelTextTextField.getText());
+        labelTextTextField.setFocus(false);
+      }
       break;
     }
   default:
@@ -342,6 +343,26 @@ public void displayTextEvent(String name, GEvent event) {
   }
 }
 
+public boolean propertyPanelhasFocus() {
+  boolean r = false;
+
+  r = r || nameTextField.hasFocus();
+  r = r || xTextField.hasFocus();
+  r = r || yTextField.hasFocus();
+  r = r || wTextField.hasFocus();
+  r = r || hTextField.hasFocus();
+  r = r || minRangeTextField.hasFocus();
+  r = r || maxRangeTextField.hasFocus();
+
+  r = r || state1TextField.hasFocus();
+  r = r || state2TextField.hasFocus();
+  r = r || state3TextField.hasFocus();
+  r = r || state4TextField.hasFocus();
+
+  r = r || labelTextTextField.hasFocus();
+
+  return r;
+}
 
 
 // set value of fields
@@ -369,4 +390,26 @@ void setFields(Drawable d) {
     // label text
     labelTextTextField.setText(d.getLabelText() + "");
   }
+}
+
+void clearFields() {
+  // name, position and dimensions
+  nameTextField.setText("");
+  xTextField.setText("");
+  yTextField.setText("");
+  wTextField.setText("");
+  hTextField.setText("");
+
+  // min max of slider
+  minRangeTextField.setText("");
+  maxRangeTextField.setText("");
+
+  // possible state of a button, default is four 
+  state1TextField.setText("");
+  state2TextField.setText("");
+  state3TextField.setText("");
+  state4TextField.setText("");
+
+  // label text
+  labelTextTextField.setText("");
 }

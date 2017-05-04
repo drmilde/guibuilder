@@ -239,5 +239,10 @@ public abstract class Drawable implements IDrawable, ISelectable {
   public String getLabelText() {
     return pvS("text");
   }
+  
+  // setter
+  public void setLabelText(String val) {
+    putSProperty("text", val);
+  }
 
 }

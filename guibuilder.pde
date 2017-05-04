@@ -19,7 +19,6 @@ int minBoxX, minBoxY, maxBoxX, maxBoxY;
 // selectAll
 boolean selectAll = false;
 
-
 // toggle properties
 boolean propertyPanel = false;
 
@@ -43,6 +42,9 @@ void setup() {
   catalog.add(new VSliderDrawable(10, ursprung_y + 290, 60, 60, 0, 0));
 
   // controls in G4P
+  G4P.setGlobalColorScheme(5);
+  G4P.setMouseOverEnabled(false);
+
   createToolBar(100, 10, 200, 40);
 
   // Property Panel
@@ -232,6 +234,7 @@ void update() {
   if (state == 12) { //dragging mode
     selectAll = !selectAll;
     items.selectAll(selectAll);
+    updatePropertyPanel();
     state = 0;
   }
 
@@ -269,14 +272,19 @@ void mouseClicked() {
 
 
 void keyReleased() {
-  // has control been released ??
+  // keys are processed by the property panel
+  if (propertyPanelhasFocus()) {
+    return;
+  }
+
+  // has control key been released ??
   if (keyCode != CONTROL) {
     // noe, andere Taste released
   } else {
     ctrlPressed = false;
   }
 
-  // has shift been released ??
+  // has shift key been released ??
   if (keyCode != SHIFT) {
     // noe, andere Taste released
   } else {
@@ -402,7 +410,7 @@ public void keyPressed() {
 // export to xml
 public void exportXML(String fname) {
   XML xml = parseXML(items.toXML());
-  
+
   if (xml == null) {
     println("XML could not be parsed.");
   } else {
@@ -411,8 +419,18 @@ public void exportXML(String fname) {
 }
 
 // property panel update
-
 public void updatePropertyPanel() {
   Drawable d = items.getFirstSelected();
-  setFields(d);
+  if (d != null) {
+    setFields(d);
+  } else {
+    clearFields();
+  }
+}
+
+public void storeSProperty(String att, String val) {
+  Drawable d = items.getFirstSelected();
+  if (d != null) {
+    d.putSProperty(att, val);
+  }
 }
