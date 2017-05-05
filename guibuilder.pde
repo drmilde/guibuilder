@@ -21,8 +21,7 @@ boolean selectAll = false;
 
 // toggle properties
 boolean propertyPanel = false;
-
-
+int nwdth = 200;
 
 // detect ctrl key
 boolean ctrlPressed = false;
@@ -49,7 +48,6 @@ void setup() {
 
   // Property Panel
   rects = new ArrayList<Rectangle> ();
-  int nwdth = 200;
   createPropertyPanel(width - nwdth - 2, ursprung_y, 
     nwdth, height - 2 - ursprung_y, 6);
 }
@@ -135,23 +133,28 @@ void update() {
     cursor(ARROW); // reset cursor to arrow
   }
 
-  if (state == 1) { // mouse has been clicked, slect item(s)
-    if ((cx > ursprung_x)  && (cy > ursprung_y)) { // into working area
+  if (state == 1) { // mouse has been clicked, select item(s)
 
-      if (ctrlPressed) { // ctrl click for mutliple selects
-        items.select(cx, cy, true);
-      } else {
-        items.select(cx, cy, false);
+    if ((propertyPanel) && (cx > (width - nwdth))) {
+      println ("click into property panel");
+    } else {
+      if ((cx > ursprung_x)  && (cy > ursprung_y)) { // into working area
+
+        if (ctrlPressed) { // ctrl click for mutliple selects
+          items.select(cx, cy, true);
+        } else {
+          items.select(cx, cy, false);
+        }
+
+        items.updateAbsolutePos(gridSize);
+
+        // update property panel
+        updatePropertyPanel();
       }
 
-      items.updateAbsolutePos(gridSize);
-
-      // update property panel
-      updatePropertyPanel();
-    }
-
-    if (cx < ursprung_x) { // into catalog
-      catalog.select(cx, cy, false);
+      if (cx < ursprung_x) { // into catalog
+        catalog.select(cx, cy, false);
+      }
     }
 
     state = 0;
