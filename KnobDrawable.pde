@@ -82,7 +82,7 @@ public class LabelDrawable extends Drawable {
   }
 
   public Drawable clone() {
-    return new LabelDrawable(text, pv("x"), pv("y"), 
+    return new LabelDrawable(pvS("text"), pv("x"), pv("y"), 
       pv("w"), pv("h"), 
       pv("ux"), pv("uy"));
   }
@@ -97,7 +97,7 @@ public class LabelDrawable extends Drawable {
     stroke(#ffffff);
     fill(#ffffff);
     textAlign(CENTER);
-    text(text, 
+    text(pvS("text"), 
       pv("x") + (pv("w")/2) + offRx, 
       pv("y") + (pv("h")/2) + offRy);
     popStyle();
