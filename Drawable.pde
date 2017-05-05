@@ -205,6 +205,12 @@ public abstract class Drawable implements IDrawable, ISelectable {
       rect(pv("x")+offRx, 
         pv("y")+offRy, 
         pv("w"), pv("h")); // draw including relative offset
+    } else {
+      stroke(#aaaaaa);
+      strokeWeight(1);
+      rect(pv("x")+offRx, 
+        pv("y")+offRy, 
+        pv("w"), pv("h")); // draw including relative offset
     }
 
     popStyle();
