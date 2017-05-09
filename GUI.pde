@@ -45,52 +45,6 @@ ArrayList<Rectangle> rects ;
 
 ///////////////////// G4P
 
-public void showPropertyPanel(boolean show) {
-  //btnFolder.setVisible(show);
-  //btnInput.setVisible(show);
-  //btnOutput.setVisible(show);
-
-  title.setVisible(show);
-
-  nameLabel.setVisible(show);
-  nameTextField.setVisible(show);
-  xLabel.setVisible(show);
-  xTextField.setVisible(show);
-  yLabel.setVisible(show);
-  yTextField.setVisible(show);
-  wLabel.setVisible(show);
-  wTextField.setVisible(show);
-  hLabel.setVisible(show);
-  hTextField.setVisible(show);
-  minRangeLabel.setVisible(show);
-  minRangeTextField.setVisible(show);
-  maxRangeLabel.setVisible(show);
-  maxRangeTextField.setVisible(show);
-
-
-  state1Label.setVisible(show);
-  state1TextField.setVisible(show);
-  state2Label.setVisible(show);
-  state2TextField.setVisible(show);
-  state3Label.setVisible(show);
-  state3TextField.setVisible(show);
-  state4Label.setVisible(show);
-  state4TextField.setVisible(show);
-
-  labelTextLabel.setVisible(show);
-  labelTextTextField.setVisible(show);
-
-  /*
-   */
-
-  if (show) {
-    for (Rectangle r : rects) {
-      showFrame(r);
-    }
-  }
-}
-
-
 public void createPropertyPanel(int x, int y, int w, int h, int border) {
   // Store picture frame
   rects.add(new Rectangle(x, y, w, h));
@@ -336,6 +290,7 @@ public void displayTextEvent(String name, GEvent event) {
         storeSProperty("text", labelTextTextField.getText());
         labelTextTextField.setFocus(false);
       }
+      println("received something from: " + name);
       break;
     }
   default:
@@ -343,73 +298,4 @@ public void displayTextEvent(String name, GEvent event) {
   }
 }
 
-public boolean propertyPanelhasFocus() {
-  boolean r = false;
-
-  r = r || nameTextField.hasFocus();
-  r = r || xTextField.hasFocus();
-  r = r || yTextField.hasFocus();
-  r = r || wTextField.hasFocus();
-  r = r || hTextField.hasFocus();
-  r = r || minRangeTextField.hasFocus();
-  r = r || maxRangeTextField.hasFocus();
-
-  r = r || state1TextField.hasFocus();
-  r = r || state2TextField.hasFocus();
-  r = r || state3TextField.hasFocus();
-  r = r || state4TextField.hasFocus();
-
-  r = r || labelTextTextField.hasFocus();
-
-  return r;
-}
-
-
 // set value of fields
-
-void setFields(Drawable d) {
-  if (d != null) {
-
-    // name, position and dimensions
-    nameTextField.setText(d.getName());
-    xTextField.setText(d.getAbsoluteX() + "");
-    yTextField.setText(d.getAbsoluteY() + "");
-    wTextField.setText(d.getWidth() + "");
-    hTextField.setText(d.getHeight() + "");
-
-    // min max of slider
-    minRangeTextField.setText(d.getMinRange() + "");
-    maxRangeTextField.setText(d.getMaxRange() + "");
-
-    // possible state of a button, default is four 
-    state1TextField.setText(d.getState("state1") + "");
-    state2TextField.setText(d.getState("state2") + "");
-    state3TextField.setText(d.getState("state3") + "");
-    state4TextField.setText(d.getState("state4") + "");
-
-    // label text
-    labelTextTextField.setText(d.getLabelText() + "");
-  }
-}
-
-void clearFields() {
-  // name, position and dimensions
-  nameTextField.setText("");
-  xTextField.setText("");
-  yTextField.setText("");
-  wTextField.setText("");
-  hTextField.setText("");
-
-  // min max of slider
-  minRangeTextField.setText("");
-  maxRangeTextField.setText("");
-
-  // possible state of a button, default is four 
-  state1TextField.setText("");
-  state2TextField.setText("");
-  state3TextField.setText("");
-  state4TextField.setText("");
-
-  // label text
-  labelTextTextField.setText("");
-}

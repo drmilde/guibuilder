@@ -217,6 +217,14 @@ public class ItemManager {
     }
   }
 
+  public String getTooltip(int px, int py) {
+    for (Drawable d : items) {
+      if (d.isOver(px, py)) {
+        return d.pvS("tooltip");
+      }
+    }
+    return "";
+  }
 
 
   public String toXML() {

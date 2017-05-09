@@ -30,13 +30,25 @@ char ctrlKey = ' ';
 // detect shift key
 boolean shiftPressed = false;
 
+//
+PropertyPanel panel;
+
 void setup() {
   size(1094, 600);
 
   // aufbau catalog
-  catalog.add(new KnobDrawable(10, ursprung_y + 10, 60, 60, 0, 0));
-  catalog.add(new ButtonDrawable(10, ursprung_y + 80, 60, 60, 0, 0));
-  catalog.add(new LabelDrawable("label", 10, ursprung_y + 150, 60, 60, 0, 0));
+  String[] knobHeaders  = {"Name", "x", "y", "width", "height"};
+  KnobDrawable kd = new KnobDrawable(10, ursprung_y + 10, 60, 60, 0, 0, knobHeaders);
+  catalog.add(kd);
+
+  String[] buttonHeaders  = {"Name", "x", "y", "width", "height", "state 1", "state 2", "state 3", "state 4" };
+  ButtonDrawable bd = new ButtonDrawable(10, ursprung_y + 80, 60, 60, 0, 0, buttonHeaders);   
+  catalog.add(bd);
+
+  String[] labelHeaders  = {"Name", "x", "y", "width", "height", "Text"};
+  LabelDrawable ld = new LabelDrawable("label", 10, ursprung_y + 150, 60, 60, 0, 0, labelHeaders); 
+  catalog.add(ld);
+
   catalog.add(new HSliderDrawable(10, ursprung_y + 220, 60, 60, 0, 0));
   catalog.add(new VSliderDrawable(10, ursprung_y + 290, 60, 60, 0, 0));
 
@@ -46,16 +58,24 @@ void setup() {
 
   createToolBar(100, 10, 200, 40);
 
-  // Property Panel
-  rects = new ArrayList<Rectangle> ();
-  createPropertyPanel(width - nwdth - 2, ursprung_y, 
-    nwdth, height - 2 - ursprung_y, 6);
+
+  // PropertyPanel
+  panel = new PropertyPanel(this, width-200-8, ursprung_y+8, 200, 20, "Properties");
+  String[] headers  = { 
+    "Name", "x", "y", 
+    "width", "height"
+    /*, 
+    "state 1", "state 2", "state 3", "state 4" 
+    */
+  };
+  panel.setHeaders(headers);
 }
 
 
 void draw() {
   background(127);
 
+  // static draw into background
   drawLines();
 
   // raster
@@ -71,12 +91,14 @@ void draw() {
     }
   }
   popMatrix();
+  catalog.draw();
+
+  /// END static draw
 
   // update 
   update();
 
-  // draw content
-  catalog.draw();
+  // Dynamic draw content
   items.draw();
   drawCursor();
   text("state: " + state, width -100, 30);
@@ -90,8 +112,7 @@ void draw() {
   }
 
   // g4P
-
-  showPropertyPanel(propertyPanel);
+  panel.show(propertyPanel);
 }
 
 void drawLines() {
@@ -129,6 +150,18 @@ void update() {
 
     rx = mouseX; // save current mouse position for relative move
     ry = mouseY;
+
+    if (mouseX < ursprung_x) {
+      String tt = catalog.getTooltip(mouseX, mouseY);
+      if (tt != "") {
+        pushStyle();
+        fill(#ffffff);
+        rect(mouseX, mouseY, 70, 20);
+        fill(#000000);    
+        text (tt, mouseX+20, mouseY+15);
+        popStyle();
+      }
+    }
 
     cursor(ARROW); // reset cursor to arrow
   }
@@ -276,7 +309,7 @@ void mouseClicked() {
 
 void keyReleased() {
   // keys are processed by the property panel
-  if (propertyPanelhasFocus()) {
+  if (panel.hasFocus()) {
     return;
   }
 
@@ -425,9 +458,10 @@ public void exportXML(String fname) {
 public void updatePropertyPanel() {
   Drawable d = items.getFirstSelected();
   if (d != null) {
-    setFields(d);
+    panel.setHeaders(d.getHeaders());
+    panel.setFields(d);
   } else {
-    clearFields();
+    panel.clearFields();
   }
 }
 

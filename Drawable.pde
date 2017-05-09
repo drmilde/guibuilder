@@ -4,9 +4,12 @@ public abstract class Drawable implements IDrawable, ISelectable {
   //protected String name = "noName";  
   protected boolean selected = false;
   protected PImage img = null;
+  protected String[] headers;
+
 
   abstract String toXML();
   abstract Drawable clone();
+
 
 
   ////////////////////////////////////////////
@@ -92,7 +95,7 @@ public abstract class Drawable implements IDrawable, ISelectable {
     }
     return 0;
   }
-  
+
   protected String pvS(String att) {
     Property prop = pm.get(att);
     if (prop != null) {
@@ -198,14 +201,14 @@ public abstract class Drawable implements IDrawable, ISelectable {
     stroke(#000000);
     noFill();
 
-    // rot, wenn selected
+    // red, when selected
     if (isSelected()) {
       stroke(#ff0000);
       strokeWeight(3);
       rect(pv("x")+offRx, 
         pv("y")+offRy, 
         pv("w"), pv("h")); // draw including relative offset
-    } else {
+    } else { // grey, when not selected
       stroke(#aaaaaa);
       strokeWeight(1);
       rect(pv("x")+offRx, 
@@ -217,6 +220,10 @@ public abstract class Drawable implements IDrawable, ISelectable {
   }
 
   // getter
+  String[] getHeaders() {
+    return headers;
+  }
+  
   public String getName() {
     return pvS("name");
   }
@@ -245,10 +252,13 @@ public abstract class Drawable implements IDrawable, ISelectable {
   public String getLabelText() {
     return pvS("text");
   }
-  
+
   // setter
+  public void setHeaders(String[] hds) {
+    headers = hds;
+  }
+  
   public void setLabelText(String val) {
     putSProperty("text", val);
   }
-
 }

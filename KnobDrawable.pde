@@ -1,9 +1,16 @@
 public class KnobDrawable extends Drawable {
 
+
   public KnobDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_) {
     super(x_, y_, w_, h_, ux_, uy_);
     img = loadImage("knob.png");
     putSProperty("name", "Knob" + IDGen.next());
+    putSProperty("tooltip", "Knob" + IDGen.next());
+  }
+
+  public KnobDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_, String[] hdrs) {
+    this(x_, y_, w_, h_, ux_, uy_);
+    headers = hdrs;
   }
 
   // implement abstract methods
@@ -28,7 +35,7 @@ public class KnobDrawable extends Drawable {
     return new KnobDrawable(
       pv("x"), pv("y"), 
       pv("w"), pv("h"), 
-      pv("ux"), pv("uy"));
+      pv("ux"), pv("uy"), headers);
   }
 
 
@@ -64,6 +71,13 @@ public class LabelDrawable extends Drawable {
     putSProperty("text", text);
   }
 
+
+  public LabelDrawable(String txt_, int x_, int y_, int w_, int h_, int ux_, int uy_, String[] hdrs) {
+    this(txt_, x_, y_, w_, h_, ux_, uy_);
+    headers = hdrs;
+  }
+
+
   // implement abstract methods
   public String toXML() {
     return (
@@ -84,7 +98,7 @@ public class LabelDrawable extends Drawable {
   public Drawable clone() {
     return new LabelDrawable(pvS("text"), pv("x"), pv("y"), 
       pv("w"), pv("h"), 
-      pv("ux"), pv("uy"));
+      pv("ux"), pv("uy"), headers);
   }
 
   public void draw() {
@@ -117,6 +131,12 @@ public class ButtonDrawable extends Drawable {
     putSProperty("state4", "bState4");
   }
 
+  public ButtonDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_, String[] hdrs) {
+    this(x_, y_, w_, h_, ux_, uy_);
+    headers = hdrs;
+  }
+
+
   // implement abstract methods
   public String toXML() {
     return (
@@ -144,7 +164,7 @@ public class ButtonDrawable extends Drawable {
   public Drawable clone() {
     return new ButtonDrawable(pv("x"), pv("y"), 
       pv("w"), pv("h"), 
-      pv("ux"), pv("uy"));
+      pv("ux"), pv("uy"), headers);
   }
 
 
