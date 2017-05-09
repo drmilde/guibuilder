@@ -34,7 +34,7 @@ boolean shiftPressed = false;
 PropertyPanel panel;
 
 void setup() {
-  size(1094, 600);
+  size(1094, 700);
 
   // aufbau catalog
   String[] knobHeaders  = {"Name", "x", "y", "width", "height"};
@@ -49,8 +49,13 @@ void setup() {
   LabelDrawable ld = new LabelDrawable("label", 10, ursprung_y + 150, 60, 60, 0, 0, labelHeaders); 
   catalog.add(ld);
 
-  catalog.add(new HSliderDrawable(10, ursprung_y + 220, 60, 60, 0, 0));
-  catalog.add(new VSliderDrawable(10, ursprung_y + 290, 60, 60, 0, 0));
+  String[] hsliderHeaders  = {"Name", "x", "y", "width", "height", "min", "max"};
+  HSliderDrawable hsd = new HSliderDrawable(10, ursprung_y + 220, 60, 60, 0, 0, hsliderHeaders);
+  catalog.add(hsd);
+
+  String[] vsliderHeaders  = {"Name", "x", "y", "width", "height", "min", "max"};
+  VSliderDrawable vsd = new VSliderDrawable(10, ursprung_y + 290, 60, 60, 0, 0, vsliderHeaders);
+  catalog.add(vsd);
 
   // controls in G4P
   G4P.setGlobalColorScheme(5);
@@ -64,9 +69,9 @@ void setup() {
   String[] headers  = { 
     "Name", "x", "y", 
     "width", "height"
-    /*, 
-    "state 1", "state 2", "state 3", "state 4" 
-    */
+  /*, 
+   "state 1", "state 2", "state 3", "state 4" 
+   */
   };
   panel.setHeaders(headers);
 }

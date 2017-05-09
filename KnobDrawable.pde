@@ -200,6 +200,11 @@ public class HSliderDrawable extends Drawable {
     putFProperty("max", 1);
   }
 
+  public HSliderDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_, String[] hdrs) {
+    this(x_, y_, w_, h_, ux_, uy_);
+    headers = hdrs;  
+  }
+  
   // implement abstract methods
   public String toXML() {
     return (
@@ -220,7 +225,7 @@ public class HSliderDrawable extends Drawable {
   public Drawable clone() {
     return new HSliderDrawable(pv("x"), pv("y"), 
       pv("w"), pv("h"), 
-      pv("ux"), pv("uy"));
+      pv("ux"), pv("uy"), headers);
   }
 
 
@@ -258,6 +263,12 @@ public class VSliderDrawable extends Drawable {
     putFProperty("max", 1);
   }
 
+  public VSliderDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_, String[] hdrs) {
+    this(x_, y_, w_, h_, ux_, uy_);
+    headers = hdrs;
+  }
+  
+  
   // implement abstract methods
   public String toXML() {
     return (
@@ -278,7 +289,7 @@ public class VSliderDrawable extends Drawable {
   public Drawable clone() {
     return new VSliderDrawable(pv("x"), pv("y"), 
       pv("w"), pv("h"), 
-      pv("ux"), pv("uy"));
+      pv("ux"), pv("uy"), headers);
   }
 
 
