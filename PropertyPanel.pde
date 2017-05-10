@@ -75,7 +75,7 @@ public class PropertyPanel {
         pair.label.setText(headers[idx], GAlign.LEFT, GAlign.MIDDLE);
         pair.label.setOpaque(true);
         pair.label.setTextBold();
-        pair.text.tag = headers[idx] + "_" +  idx + " tf";
+        pair.text.tag = headers[idx];// + "_" +  idx + " tf";
       }
       idx++;
     }
@@ -121,7 +121,7 @@ public class PropertyPanel {
     }
   }
 
-  private void setField(String n, String v) {
+  public void setField(String n, String v) {
     int idx = 0;
     for (LabelTextPair pair : elements) {
       if (idx < maxEntries) {
@@ -132,6 +132,20 @@ public class PropertyPanel {
       idx++;
     }
   }
+
+  public String getField(String n) {
+    int idx = 0;
+    for (LabelTextPair pair : elements) {
+      if (idx < maxEntries) {
+        if (pair.label.getText() == n) {
+          return (pair.text.getText());
+        }
+      } 
+      idx++;
+    }
+    return null;
+  }
+
 
   public void setFields(Drawable d) {
     if (d != null) {

@@ -14,8 +14,6 @@ public class PropertyManager {
   }
 }
 
-
-
 /////////////////// Property
 public class Property {
   private String attName = "";
@@ -24,28 +22,31 @@ public class Property {
   private int iValue = 0;
   private float fValue = 0;
   private String sValue = "";
-
+  
+  public static final int INT = 0;
+  public static final int FLOAT = 1;
+  public static final int STRING = 2;
 
   public Property (String name, int v) {
     attName = name;
     iValue = v;
-    ID = 0;
+    ID = INT;
   }
 
   public Property (String name, float v) {
     attName = name;
     fValue = v;
-    ID = 1;
+    ID = FLOAT;
   }
 
   public Property (String name, String v) {
     attName = name;
     sValue = v;
-    ID = 2;
+    ID = STRING;
   }
 
   public int getIValue() {
-    if (ID == 0) {
+    if (ID == INT) {
       return iValue;
     } else {
       return 0;
@@ -53,7 +54,7 @@ public class Property {
   }
 
   public float getFValue() {
-    if (ID == 1) {
+    if (ID == FLOAT) {
       return fValue;
     } else {
       return 0;
@@ -61,28 +62,32 @@ public class Property {
   }
 
   public String getSValue() {
-    if (ID == 2) {
+    if (ID == STRING) {
       return sValue;
     } else {
       return "";
     }
+  }
+  
+  public int getID() {
+    return ID;
   }
 
 
   // setter
 
   public void setIValue(int v) {
-    if (ID == 0) {
+    if (ID == INT) {
       iValue = v;
     }
   }
   public void setFValue(float v) {
-    if (ID == 1) {
+    if (ID == FLOAT) {
       fValue = v;
     }
   }
   public void setSValue(String v) {
-    if (ID == 2) {
+    if (ID == STRING) {
       sValue = v;
     }
   }

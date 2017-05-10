@@ -60,19 +60,12 @@ void setup() {
   // controls in G4P
   G4P.setGlobalColorScheme(5);
   G4P.setMouseOverEnabled(false);
-
+  
   createToolBar(100, 10, 200, 40);
-
 
   // PropertyPanel
   panel = new PropertyPanel(this, width-200-8, ursprung_y+8, 200, 20, "Properties");
-  String[] headers  = { 
-    "Name", "x", "y", 
-    "width", "height"
-  /*, 
-   "state 1", "state 2", "state 3", "state 4" 
-   */
-  };
+  String[] headers  = { "Name", "x", "y", "width", "height"};
   panel.setHeaders(headers);
 }
 
@@ -96,6 +89,7 @@ void draw() {
     }
   }
   popMatrix();
+  
   catalog.draw();
 
   /// END static draw

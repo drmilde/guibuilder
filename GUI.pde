@@ -97,17 +97,22 @@ public void handleTextEvents(GEditableTextControl textControl, GEvent event) {
 
 // display text events
 public void displayTextEvent(String name, GEvent event) {
-  //print("name: \"" + name + "\"  ");
   switch(event) {
   case ENTERED: 
     {
-      if (name == "text label tf") { // 
-        println("ENTERED somthing" );
-      }
-      println("received something from: " + name);
+      println ("processing data");
+      processData(name, panel.getField(name));
       break;
     }
   default:
     break;
+  }
+}
+
+private void processData (String att, String val) {
+  // transmit data to slected Drawable
+  Drawable d = items.getFirstSelected();
+  if (d != null) {
+    d.processData(att,val);
   }
 }

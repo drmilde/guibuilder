@@ -20,12 +20,12 @@ public abstract class Drawable implements IDrawable, ISelectable {
 
   public Drawable(int x_, int y_, int w_, int h_, int ux_, int uy_) {
     // create properties
-    pm.put("name", new Property ("name", "noName"));
+    pm.put("Name", new Property ("Name", "noName"));
 
     pm.put("x", new Property ("x", 0));
     pm.put("y", new Property ("y", 0));
-    pm.put("w", new Property ("w", 0));
-    pm.put("h", new Property ("h", 0));
+    pm.put("width", new Property ("width", 0));
+    pm.put("height", new Property ("height", 0));
 
     pm.put("ux", new Property ("ux", 0));
     pm.put("uy", new Property ("uy", 0));
@@ -39,8 +39,8 @@ public abstract class Drawable implements IDrawable, ISelectable {
 
     putIProperty("x", x_ + pv("ux"));
     putIProperty("y", y_ + pv("uy"));
-    putIProperty("w", w_);
-    putIProperty("h", h_);
+    putIProperty("width", w_);
+    putIProperty("height", h_);
   }
 
   protected void putIProperty(String att, int val) {
@@ -152,21 +152,21 @@ public abstract class Drawable implements IDrawable, ISelectable {
   }
 
   public void increaseWidth(int inc, int gs) {
-    int w = pv("w");
+    int w = pv("width");
     w += inc;
     if (gs > 0) {
       w = w - (w % gs);
     }
-    putIProperty("w", w);
+    putIProperty("width", w);
   }
 
   // ISelectable
   public boolean isOver(int px, int py) {
 
     return( (px > pv("x")) && 
-      (px < (pv("x")+pv("w"))) && 
+      (px < (pv("x")+pv("width"))) && 
       (py > pv("y")) && 
-      (py < (pv("y") + pv("h"))) );
+      (py < (pv("y") + pv("height"))) );
   }
 
   public boolean inBox(int bx, int by, int bwidth, int bheight) {
@@ -175,8 +175,8 @@ public abstract class Drawable implements IDrawable, ISelectable {
     boolean p1y = ( (by < pv("y")) && ((by + bheight) > pv("y")) );
 
     // lower right coord
-    int x2 = pv("x") + pv("w");
-    int y2 = pv("y") + pv("h");
+    int x2 = pv("x") + pv("width");
+    int y2 = pv("y") + pv("height");
 
     boolean p2x = ( (bx < x2) && ((bx + bwidth) > x2) );
     boolean p2y = ( (by < y2) && ((by + bheight) > y2) );
@@ -207,13 +207,13 @@ public abstract class Drawable implements IDrawable, ISelectable {
       strokeWeight(3);
       rect(pv("x")+offRx, 
         pv("y")+offRy, 
-        pv("w"), pv("h")); // draw including relative offset
+        pv("width"), pv("height")); // draw including relative offset
     } else { // grey, when not selected
       stroke(#aaaaaa);
       strokeWeight(1);
       rect(pv("x")+offRx, 
         pv("y")+offRy, 
-        pv("w"), pv("h")); // draw including relative offset
+        pv("width"), pv("height")); // draw including relative offset
     }
 
     popStyle();
@@ -223,9 +223,9 @@ public abstract class Drawable implements IDrawable, ISelectable {
   String[] getHeaders() {
     return headers;
   }
-  
+
   public String getName() {
-    return pvS("name");
+    return pvS("Name");
   }
   public int getAbsoluteX() {
     return pv("x") + pv("offRx");
@@ -234,10 +234,10 @@ public abstract class Drawable implements IDrawable, ISelectable {
     return pv("y") + pv("offRy");
   }
   public int getWidth() {
-    return pv("w");
+    return pv("width");
   }
   public int getHeight() {
-    return pv("h");
+    return pv("height");
   }
   public String getState(String sname) {
     return pvS(sname);
@@ -257,8 +257,30 @@ public abstract class Drawable implements IDrawable, ISelectable {
   public void setHeaders(String[] hds) {
     headers = hds;
   }
-  
+
   public void setLabelText(String val) {
     putSProperty("text", val);
   }
+
+  private void processData (String att, String val) {
+    // transmit data to selected Drawable
+    Property prop = pm.get(att);
+    if (prop != null) {
+      if (prop.getID() == Property.INT) {
+        prop.setIValue(Integer.parseInt(val));
+        pm.put(att, prop);
+      }
+
+      if (prop.getID() == Property.FLOAT) {
+        prop.setFValue(Float.parseFloat(val));
+        pm.put(att, prop);
+      }
+
+      if (prop.getID() == Property.STRING) {
+        prop.setSValue(val);
+        pm.put(att, prop);
+      }
+    }
+  }
+  
 }

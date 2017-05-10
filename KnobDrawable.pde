@@ -1,10 +1,9 @@
 public class KnobDrawable extends Drawable {
-
-
+  
   public KnobDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_) {
     super(x_, y_, w_, h_, ux_, uy_);
     img = loadImage("knob.png");
-    putSProperty("name", "Knob" + IDGen.next());
+    putSProperty("Name", "Knob" + IDGen.next());
     putSProperty("tooltip", "Knob" + IDGen.next());
   }
 
@@ -17,13 +16,13 @@ public class KnobDrawable extends Drawable {
   public String toXML() {
     return (
       "<widget type=\"knob\">" + "\n" +  
-      "<name label=\"" + pvS("name") + "\">"  + pvS("name") + "</name>" + "\n" +
+      "<name label=\"" + pvS("Name") + "\">"  + pvS("Name") + "</name>" + "\n" +
 
       "<position " +  
       "x=\"" + pv("x") + "\" " +
       "y=\"" + pv("y") + "\" " + 
-      "w=\"" + pv("w") + "\" " + 
-      "h=\"" + pv("h") + "\">" + 
+      "w=\"" + pv("width") + "\" " + 
+      "h=\"" + pv("height") + "\">" + 
       "</position>" + "\n" +
 
       "</widget>"
@@ -34,7 +33,7 @@ public class KnobDrawable extends Drawable {
   public Drawable clone() {
     return new KnobDrawable(
       pv("x"), pv("y"), 
-      pv("w"), pv("h"), 
+      pv("width"), pv("height"), 
       pv("ux"), pv("uy"), headers);
   }
 
@@ -52,9 +51,9 @@ public class KnobDrawable extends Drawable {
     strokeWeight(2);
     //ellipse(x + w/2, y + h/2, w, h);
     imageMode(CENTER);
-    image(img, pv("x")+(pv("w")/2) + offRx, 
-      pv("y")+ (pv("h")/2) + offRy, 
-      pv("w"), pv("h"));
+    image(img, pv("x")+(pv("width")/2) + offRx, 
+      pv("y")+ (pv("height")/2) + offRy, 
+      pv("width"), pv("height"));
     popStyle();
   }
 }
@@ -67,7 +66,7 @@ public class LabelDrawable extends Drawable {
   public LabelDrawable(String txt_, int x_, int y_, int w_, int h_, int ux_, int uy_) {
     super(x_, y_, w_, h_, ux_, uy_);
     text = txt_;
-    putSProperty("name", "Label" + IDGen.next());
+    putSProperty("Name", "Label" + IDGen.next());
     putSProperty("text", text);
   }
 
@@ -82,13 +81,13 @@ public class LabelDrawable extends Drawable {
   public String toXML() {
     return (
       "<widget type=\"label\">" + "\n" +  
-      "<name label=\"" + pvS("text") + "\">"  + pvS("name") + "</name>" + "\n" +
+      "<name label=\"" + pvS("text") + "\">"  + pvS("Name") + "</name>" + "\n" +
 
       "<position " +  
       "x=\"" + pv("x") + "\" " +
       "y=\"" + pv("y") + "\" " + 
-      "w=\"" + pv("w") + "\" " + 
-      "h=\"" + pv("h") + "\">" + 
+      "w=\"" + pv("width") + "\" " + 
+      "h=\"" + pv("height") + "\">" + 
       "</position>" + "\n" +
 
       "</widget>"
@@ -97,7 +96,7 @@ public class LabelDrawable extends Drawable {
 
   public Drawable clone() {
     return new LabelDrawable(pvS("text"), pv("x"), pv("y"), 
-      pv("w"), pv("h"), 
+      pv("width"), pv("height"), 
       pv("ux"), pv("uy"), headers);
   }
 
@@ -112,8 +111,8 @@ public class LabelDrawable extends Drawable {
     fill(#ffffff);
     textAlign(CENTER);
     text(pvS("text"), 
-      pv("x") + (pv("w")/2) + offRx, 
-      pv("y") + (pv("h")/2) + offRy);
+      pv("x") + (pv("width")/2) + offRx, 
+      pv("y") + (pv("height")/2) + offRy);
     popStyle();
   }
 }
@@ -124,11 +123,11 @@ public class ButtonDrawable extends Drawable {
   public ButtonDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_) {
     super(x_, y_, w_, h_, ux_, uy_);
     img = loadImage("button.png");
-    putSProperty("name", "Button" + IDGen.next());
-    putSProperty("state1", "bState1");
-    putSProperty("state2", "bState2");
-    putSProperty("state3", "bState3");
-    putSProperty("state4", "bState4");
+    putSProperty("Name", "Button" + IDGen.next());
+    putSProperty("state 1", "bState1");
+    putSProperty("state 2", "bState2");
+    putSProperty("state 3", "bState3");
+    putSProperty("state 4", "bState4");
   }
 
   public ButtonDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_, String[] hdrs) {
@@ -141,20 +140,20 @@ public class ButtonDrawable extends Drawable {
   public String toXML() {
     return (
       "<widget type=\"button\">" + "\n" +  
-      "<name label=\"" + pvS("name") + "\">"  + pvS("name") + "</name>" + "\n" +
+      "<name label=\"" + pvS("Name") + "\">"  + pvS("Name") + "</name>" + "\n" +
 
       "<position " +  
       "x=\"" + pv("x") + "\" " +
       "y=\"" + pv("y") + "\" " + 
-      "w=\"" + pv("w") + "\" " + 
-      "h=\"" + pv("h") + "\">" + 
+      "w=\"" + pv("width") + "\" " + 
+      "h=\"" + pv("height") + "\">" + 
       "</position>" + "\n" +
 
       "<states>" + "\n" +
-      "<state>" + pvS("state1") + "</state>" + "\n" +
-      "<state>" + pvS("state2") + "</state>" + "\n" +
-      "<state>" + pvS("state3") + "</state>" + "\n" +
-      "<state>" + pvS("state4") + "</state>" + "\n" +
+      "<state>" + pvS("state 1") + "</state>" + "\n" +
+      "<state>" + pvS("state 2") + "</state>" + "\n" +
+      "<state>" + pvS("state 3") + "</state>" + "\n" +
+      "<state>" + pvS("state 4") + "</state>" + "\n" +
       "</states>" + "\n" +
 
       "</widget>"
@@ -163,7 +162,7 @@ public class ButtonDrawable extends Drawable {
 
   public Drawable clone() {
     return new ButtonDrawable(pv("x"), pv("y"), 
-      pv("w"), pv("h"), 
+      pv("width"), pv("height"), 
       pv("ux"), pv("uy"), headers);
   }
 
@@ -181,9 +180,9 @@ public class ButtonDrawable extends Drawable {
     strokeWeight(2);
     //ellipse(x + w/2, y + h/2, w, h);
     imageMode(CENTER);
-    image(img, pv("x")+(pv("w")/2) + offRx, 
-      pv("y")+ (pv("h")/2) + offRy, 
-      pv("w"), pv("h"));
+    image(img, pv("x")+(pv("width")/2) + offRx, 
+      pv("y")+ (pv("height")/2) + offRy, 
+      pv("width"), pv("height"));
     popStyle();
   }
 }
@@ -195,7 +194,7 @@ public class HSliderDrawable extends Drawable {
   public HSliderDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_) {
     super(x_, y_, w_, h_, ux_, uy_);
     img = loadImage("hslider.png");
-    putSProperty("name", "HSlider" + IDGen.next());
+    putSProperty("Name", "HSlider" + IDGen.next());
     putFProperty("min", 0);
     putFProperty("max", 1);
   }
@@ -209,13 +208,13 @@ public class HSliderDrawable extends Drawable {
   public String toXML() {
     return (
       "<widget type=\"hslider\">" + "\n" +  
-      "<name label=\"" + pvS("name") + "\">"  + pvS("name") + "</name>" + "\n" +
+      "<name label=\"" + pvS("Name") + "\">"  + pvS("Name") + "</name>" + "\n" +
 
       "<position " +  
       "x=\"" + pv("x") + "\" " +
       "y=\"" + pv("y") + "\" " + 
-      "w=\"" + pv("w") + "\" " + 
-      "h=\"" + pv("h") + "\">" + 
+      "w=\"" + pv("width") + "\" " + 
+      "h=\"" + pv("height") + "\">" + 
       "</position>" + "\n" +
 
       "</widget>"
@@ -224,7 +223,7 @@ public class HSliderDrawable extends Drawable {
 
   public Drawable clone() {
     return new HSliderDrawable(pv("x"), pv("y"), 
-      pv("w"), pv("h"), 
+      pv("width"), pv("height"), 
       pv("ux"), pv("uy"), headers);
   }
 
@@ -242,9 +241,9 @@ public class HSliderDrawable extends Drawable {
     strokeWeight(2);
     //ellipse(x + w/2, y + h/2, w, h);
     imageMode(CENTER);
-    image(img, pv("x")+(pv("w")/2) + offRx, 
-      pv("y") + (pv("h")/2) + offRy, 
-      pv("w"), 20);
+    image(img, pv("x")+(pv("width")/2) + offRx, 
+      pv("y") + (pv("height")/2) + offRy, 
+      pv("width"), 20);
     popStyle();
   }
 }
@@ -258,7 +257,7 @@ public class VSliderDrawable extends Drawable {
   public VSliderDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_) {
     super(x_, y_, w_, h_, ux_, uy_);
     img = loadImage("vslider.png");
-    putSProperty("name", "VSlider" + IDGen.next());
+    putSProperty("Name", "VSlider" + IDGen.next());
     putFProperty("min", 0);
     putFProperty("max", 1);
   }
@@ -267,19 +266,18 @@ public class VSliderDrawable extends Drawable {
     this(x_, y_, w_, h_, ux_, uy_);
     headers = hdrs;
   }
-  
-  
+    
   // implement abstract methods
   public String toXML() {
     return (
       "<widget type=\"vslider\">" + "\n" +  
-      "<name label=\"" + pvS("name") + "\">"  + pvS("name") + "</name>" + "\n" +
+      "<name label=\"" + pvS("Name") + "\">"  + pvS("Name") + "</name>" + "\n" +
 
       "<position " +  
       "x=\"" + pv("x") + "\" " +
       "y=\"" + pv("y") + "\" " + 
-      "w=\"" + pv("w") + "\" " + 
-      "h=\"" + pv("h") + "\">" + 
+      "w=\"" + pv("width") + "\" " + 
+      "h=\"" + pv("height") + "\">" + 
       "</position>" + "\n" +
 
       "</widget>"
@@ -288,7 +286,7 @@ public class VSliderDrawable extends Drawable {
 
   public Drawable clone() {
     return new VSliderDrawable(pv("x"), pv("y"), 
-      pv("w"), pv("h"), 
+      pv("width"), pv("height"), 
       pv("ux"), pv("uy"), headers);
   }
 
@@ -306,9 +304,9 @@ public class VSliderDrawable extends Drawable {
     strokeWeight(2);
     //ellipse(x + w/2, y + h/2, w, h);
     imageMode(CENTER);
-    image(img, pv("x")+(pv("w")/2) + offRx, 
-      pv("y") + (pv("h")/2) + offRy, 
-      20, pv("h"));
+    image(img, pv("x")+(pv("width")/2) + offRx, 
+      pv("y") + (pv("height")/2) + offRy, 
+      20, pv("height"));
     popStyle();
   }
 }
