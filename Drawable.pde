@@ -250,7 +250,7 @@ public abstract class Drawable implements IDrawable, ISelectable {
   }
 
   public String getLabelText() {
-    return pvS("text");
+    return pvS("Text");
   }
 
   // setter
@@ -259,7 +259,7 @@ public abstract class Drawable implements IDrawable, ISelectable {
   }
 
   public void setLabelText(String val) {
-    putSProperty("text", val);
+    putSProperty("Text", val);
   }
 
   private void processData (String att, String val) {

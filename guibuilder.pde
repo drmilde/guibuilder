@@ -1,9 +1,10 @@
 import java.awt.Rectangle;
 import g4p_controls.*;
 
-int ursprung_x = 80;
+int ursprung_x = 120;
 int ursprung_y = 60;
 int gridSize = 20;
+int catalogSize = 2 * gridSize;
 
 ItemManager items = new ItemManager();
 ItemManager catalog = new ItemManager();
@@ -38,30 +39,53 @@ void setup() {
 
   // aufbau catalog
   String[] knobHeaders  = {"Name", "x", "y", "width", "height"};
-  KnobDrawable kd = new KnobDrawable(10, ursprung_y + 10, 60, 60, 0, 0, knobHeaders);
+  KnobDrawable kd = new KnobDrawable(10, 
+    ursprung_y, 
+    catalogSize, catalogSize, 0, 0, knobHeaders);
   catalog.add(kd);
 
   String[] buttonHeaders  = {"Name", "x", "y", "width", "height", "state 1", "state 2", "state 3", "state 4" };
-  ButtonDrawable bd = new ButtonDrawable(10, ursprung_y + 80, 60, 60, 0, 0, buttonHeaders);   
+  ButtonDrawable bd = new ButtonDrawable(10, 
+    ursprung_y + (catalogSize+10) * 1, 
+    catalogSize, catalogSize, 0, 0, buttonHeaders);   
   catalog.add(bd);
 
   String[] labelHeaders  = {"Name", "x", "y", "width", "height", "Text"};
-  LabelDrawable ld = new LabelDrawable("label", 10, ursprung_y + 150, 60, 60, 0, 0, labelHeaders); 
+  LabelDrawable ld = new LabelDrawable("label", 10, 
+    ursprung_y + (catalogSize+10) * 2, 
+    catalogSize, catalogSize, 0, 0, labelHeaders); 
   catalog.add(ld);
 
   String[] hsliderHeaders  = {"Name", "x", "y", "width", "height", "min", "max"};
-  HSliderDrawable hsd = new HSliderDrawable(10, ursprung_y + 220, 60, 60, 0, 0, hsliderHeaders);
+  HSliderDrawable hsd = new HSliderDrawable(10, 
+    ursprung_y + (catalogSize + 10) * 3, 
+    catalogSize, catalogSize, 0, 0, hsliderHeaders);
   catalog.add(hsd);
 
   String[] vsliderHeaders  = {"Name", "x", "y", "width", "height", "min", "max"};
-  VSliderDrawable vsd = new VSliderDrawable(10, ursprung_y + 290, 60, 60, 0, 0, vsliderHeaders);
+  VSliderDrawable vsd = new VSliderDrawable(10, 
+    ursprung_y + (catalogSize + 10) * 4, 
+    catalogSize, catalogSize, 0, 0, vsliderHeaders);
   catalog.add(vsd);
+
+  String[] slider2DHeaders  = {"Name", "x", "y", "width", "height", "min", "max"};
+  Slider2DDrawable s2dd = new Slider2DDrawable(10, 
+    ursprung_y + (catalogSize + 10) * 5, 
+    catalogSize, catalogSize, 0, 0, slider2DHeaders);
+  catalog.add(s2dd);
+
+  String[] textFieldHeaders  = {"Name", "x", "y", "width", "height", "min", "max"};
+  TextFieldDrawable tfd = new TextFieldDrawable(10, 
+    ursprung_y + (catalogSize + 10) * 6, 
+    catalogSize, catalogSize, 0, 0, textFieldHeaders);
+  catalog.add(tfd);
+
 
   // controls in G4P
   G4P.setGlobalColorScheme(5);
   G4P.setMouseOverEnabled(false);
-  
-  createToolBar(100, 10, 200, 40);
+
+  createToolBar(ursprung_x + 20, 10, 200, 40);
 
   // PropertyPanel
   panel = new PropertyPanel(this, width-200-8, ursprung_y+8, 200, 20, "Properties");
@@ -89,7 +113,7 @@ void draw() {
     }
   }
   popMatrix();
-  
+
   catalog.draw();
 
   /// END static draw
@@ -119,7 +143,7 @@ void drawLines() {
   pushStyle();
   stroke(#ffffff);
   strokeWeight(3);
-  line (0, ursprung_y, width, ursprung_y);
+  line (ursprung_x, ursprung_y, width, ursprung_y);
   line (ursprung_x, 0, ursprung_x, height);
   popStyle();
 }
@@ -155,7 +179,7 @@ void update() {
       if (tt != "") {
         pushStyle();
         fill(#ffffff);
-        rect(mouseX, mouseY, 70, 20);
+        rect(mouseX, mouseY, 80, 20);
         fill(#000000);    
         text (tt, mouseX+20, mouseY+15);
         popStyle();
@@ -220,7 +244,7 @@ void update() {
 
   if (state == 6) { // duplicate selected item
     if (cx > ursprung_x) {
-      items.duplicateSelected(gridSize*3, gridSize*3, gridSize);
+      items.duplicateSelected(gridSize*2, gridSize*2, gridSize);
     }
 
     // update property panel

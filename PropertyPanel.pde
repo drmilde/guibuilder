@@ -162,10 +162,10 @@ public class PropertyPanel {
       setField("max", (d.getMaxRange() + ""));
 
       // possible state of a button, default is four 
-      setField("state 1", (d.getState("state1") + ""));
-      setField("state 2", (d.getState("state2") + ""));
-      setField("state 3", (d.getState("state3") + ""));
-      setField("state 4", (d.getState("state4") + ""));
+      setField("state 1", (d.getState("state 1") + ""));
+      setField("state 2", (d.getState("state 2") + ""));
+      setField("state 3", (d.getState("state 3") + ""));
+      setField("state 4", (d.getState("state 4") + ""));
 
       // label text
       setField("Text", (d.getLabelText() + ""));

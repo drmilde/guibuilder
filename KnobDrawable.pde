@@ -1,21 +1,12 @@
-public class KnobDrawable extends Drawable {
-  
-  public KnobDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_) {
+public abstract class ImageDrawable extends Drawable {
+  public ImageDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_, String fname) {
     super(x_, y_, w_, h_, ux_, uy_);
-    img = loadImage("knob.png");
-    putSProperty("Name", "Knob" + IDGen.next());
-    putSProperty("tooltip", "Knob" + IDGen.next());
+    img = loadImage(fname);
   }
 
-  public KnobDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_, String[] hdrs) {
-    this(x_, y_, w_, h_, ux_, uy_);
-    headers = hdrs;
-  }
-
-  // implement abstract methods
-  public String toXML() {
+  public String toXML(String insert, String type) {
     return (
-      "<widget type=\"knob\">" + "\n" +  
+      "<widget type=\"" + type + "\">" + "\n" +  
       "<name label=\"" + pvS("Name") + "\">"  + pvS("Name") + "</name>" + "\n" +
 
       "<position " +  
@@ -25,18 +16,12 @@ public class KnobDrawable extends Drawable {
       "h=\"" + pv("height") + "\">" + 
       "</position>" + "\n" +
 
+      insert + 
+
       "</widget>"
 
       );
   }
-
-  public Drawable clone() {
-    return new KnobDrawable(
-      pv("x"), pv("y"), 
-      pv("width"), pv("height"), 
-      pv("ux"), pv("uy"), headers);
-  }
-
 
   // overwrite draw method
   public void draw() {
@@ -49,40 +34,29 @@ public class KnobDrawable extends Drawable {
     fill(#444444);
     stroke(#000000);
     strokeWeight(2);
-    //ellipse(x + w/2, y + h/2, w, h);
+
     imageMode(CENTER);
     image(img, pv("x")+(pv("width")/2) + offRx, 
       pv("y")+ (pv("height")/2) + offRy, 
       pv("width"), pv("height"));
+
     popStyle();
   }
 }
 
-///////////////////////// LABEL
 
-public class LabelDrawable extends Drawable {
-  private String text = "none";
+public abstract class TextDrawable extends Drawable {
 
-  public LabelDrawable(String txt_, int x_, int y_, int w_, int h_, int ux_, int uy_) {
+  public TextDrawable(String txt_, int x_, int y_, int w_, int h_, int ux_, int uy_) {
     super(x_, y_, w_, h_, ux_, uy_);
-    text = txt_;
-    putSProperty("Name", "Label" + IDGen.next());
-    putSProperty("text", text);
+    putSProperty("Text", txt_);
   }
-
-
-  public LabelDrawable(String txt_, int x_, int y_, int w_, int h_, int ux_, int uy_, String[] hdrs) {
-    this(txt_, x_, y_, w_, h_, ux_, uy_);
-    headers = hdrs;
-  }
-
 
   // implement abstract methods
-  public String toXML() {
+  public String toXML(String insert, String type) {
     return (
-      "<widget type=\"label\">" + "\n" +  
-      "<name label=\"" + pvS("text") + "\">"  + pvS("Name") + "</name>" + "\n" +
-
+      "<widget type=\"" + type + "\">" + "\n" + 
+      "<name label=\"" + pvS("Text") + "\">"  + pvS("Name") + "</name>" + "\n" +
       "<position " +  
       "x=\"" + pv("x") + "\" " +
       "y=\"" + pv("y") + "\" " + 
@@ -90,14 +64,10 @@ public class LabelDrawable extends Drawable {
       "h=\"" + pv("height") + "\">" + 
       "</position>" + "\n" +
 
+      insert +
+
       "</widget>"
       );
-  }
-
-  public Drawable clone() {
-    return new LabelDrawable(pvS("text"), pv("x"), pv("y"), 
-      pv("width"), pv("height"), 
-      pv("ux"), pv("uy"), headers);
   }
 
   public void draw() {
@@ -110,20 +80,74 @@ public class LabelDrawable extends Drawable {
     stroke(#ffffff);
     fill(#ffffff);
     textAlign(CENTER);
-    text(pvS("text"), 
+    text(pvS("Text"), 
       pv("x") + (pv("width")/2) + offRx, 
       pv("y") + (pv("height")/2) + offRy);
     popStyle();
   }
 }
 
+
+public class KnobDrawable extends ImageDrawable {
+
+  public KnobDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_) {
+    super(x_, y_, w_, h_, ux_, uy_, "knob.png");
+    putSProperty("Name", "Knob" + IDGen.next());
+    putSProperty("tooltip", "Knob");
+  }
+
+  public KnobDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_, String[] hdrs) {
+    this(x_, y_, w_, h_, ux_, uy_);
+    headers = hdrs;
+  }
+
+  // implement abstract methods
+  public String toXML() {
+    return (toXML("", "knob"));
+  }
+
+  public Drawable clone() {
+    return new KnobDrawable(
+      pv("x"), pv("y"), 
+      pv("width"), pv("height"), 
+      pv("ux"), pv("uy"), headers);
+  }
+}
+
+///////////////////////// LABEL
+public class LabelDrawable extends TextDrawable {
+
+  public LabelDrawable(String txt_, int x_, int y_, int w_, int h_, int ux_, int uy_) {
+    super(txt_, x_, y_, w_, h_, ux_, uy_);
+    putSProperty("Name", "Label" + IDGen.next());
+    putSProperty("tooltip", "Label");
+  }
+
+  public LabelDrawable(String txt_, int x_, int y_, int w_, int h_, int ux_, int uy_, String[] hdrs) {
+    this(txt_, x_, y_, w_, h_, ux_, uy_);
+    headers = hdrs;
+  }
+
+  // implement abstract methods
+  public String toXML() {
+    return (toXML("", "label"));
+  }
+
+  public Drawable clone() {
+    return new LabelDrawable(
+      pvS("Text"), pv("x"), pv("y"), 
+      pv("width"), pv("height"), 
+      pv("ux"), pv("uy"), headers);
+  }
+}
+
 //////////////////// BUTTON
-public class ButtonDrawable extends Drawable {
+public class ButtonDrawable extends ImageDrawable {
 
   public ButtonDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_) {
-    super(x_, y_, w_, h_, ux_, uy_);
-    img = loadImage("button.png");
+    super(x_, y_, w_, h_, ux_, uy_, "button.png");
     putSProperty("Name", "Button" + IDGen.next());
+    putSProperty("tooltip", "Button");
     putSProperty("state 1", "bState1");
     putSProperty("state 2", "bState2");
     putSProperty("state 3", "bState3");
@@ -138,87 +162,45 @@ public class ButtonDrawable extends Drawable {
 
   // implement abstract methods
   public String toXML() {
-    return (
-      "<widget type=\"button\">" + "\n" +  
-      "<name label=\"" + pvS("Name") + "\">"  + pvS("Name") + "</name>" + "\n" +
-
-      "<position " +  
-      "x=\"" + pv("x") + "\" " +
-      "y=\"" + pv("y") + "\" " + 
-      "w=\"" + pv("width") + "\" " + 
-      "h=\"" + pv("height") + "\">" + 
-      "</position>" + "\n" +
-
+    String insert = 
       "<states>" + "\n" +
       "<state>" + pvS("state 1") + "</state>" + "\n" +
       "<state>" + pvS("state 2") + "</state>" + "\n" +
       "<state>" + pvS("state 3") + "</state>" + "\n" +
       "<state>" + pvS("state 4") + "</state>" + "\n" +
-      "</states>" + "\n" +
+      "</states>" + "\n";
 
-      "</widget>"
-      );
+    return (toXML(insert, "button"));
   }
 
   public Drawable clone() {
-    return new ButtonDrawable(pv("x"), pv("y"), 
+    return new ButtonDrawable(
+      pv("x"), pv("y"), 
       pv("width"), pv("height"), 
       pv("ux"), pv("uy"), headers);
-  }
-
-
-  // overwrite draw method
-  public void draw() {
-    int offRx = pv("offRx");
-    int offRy = pv("offRy");
-
-    super.draw();
-
-    pushStyle();
-    fill(#444444);
-    stroke(#000000);
-    strokeWeight(2);
-    //ellipse(x + w/2, y + h/2, w, h);
-    imageMode(CENTER);
-    image(img, pv("x")+(pv("width")/2) + offRx, 
-      pv("y")+ (pv("height")/2) + offRy, 
-      pv("width"), pv("height"));
-    popStyle();
   }
 }
 
 
 ///////////////////// HSLIDER
-public class HSliderDrawable extends Drawable {
+public class HSliderDrawable extends ImageDrawable {
 
   public HSliderDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_) {
-    super(x_, y_, w_, h_, ux_, uy_);
-    img = loadImage("hslider.png");
+    super(x_, y_, w_, h_, ux_, uy_, "hslider.png");
     putSProperty("Name", "HSlider" + IDGen.next());
+    putSProperty("tooltip", "HSlider");
     putFProperty("min", 0);
     putFProperty("max", 1);
   }
 
   public HSliderDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_, String[] hdrs) {
     this(x_, y_, w_, h_, ux_, uy_);
-    headers = hdrs;  
+    headers = hdrs;
   }
-  
+
   // implement abstract methods
   public String toXML() {
-    return (
-      "<widget type=\"hslider\">" + "\n" +  
-      "<name label=\"" + pvS("Name") + "\">"  + pvS("Name") + "</name>" + "\n" +
-
-      "<position " +  
-      "x=\"" + pv("x") + "\" " +
-      "y=\"" + pv("y") + "\" " + 
-      "w=\"" + pv("width") + "\" " + 
-      "h=\"" + pv("height") + "\">" + 
-      "</position>" + "\n" +
-
-      "</widget>"
-      );
+    return (toXML("", "hslider"));
   }
 
   public Drawable clone() {
@@ -227,37 +209,18 @@ public class HSliderDrawable extends Drawable {
       pv("ux"), pv("uy"), headers);
   }
 
-
-  // overwrite draw method
-  public void draw() {
-    int offRx = pv("offRx");
-    int offRy = pv("offRy");
-
-    super.draw();
-
-    pushStyle();
-    fill(#444444);
-    stroke(#000000);
-    strokeWeight(2);
-    //ellipse(x + w/2, y + h/2, w, h);
-    imageMode(CENTER);
-    image(img, pv("x")+(pv("width")/2) + offRx, 
-      pv("y") + (pv("height")/2) + offRy, 
-      pv("width"), 20);
-    popStyle();
-  }
 }
 
 
 
 ///////////////////// VSLIDER
 
-public class VSliderDrawable extends Drawable {
+public class VSliderDrawable extends ImageDrawable {
 
   public VSliderDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_) {
-    super(x_, y_, w_, h_, ux_, uy_);
-    img = loadImage("vslider.png");
+    super(x_, y_, w_, h_, ux_, uy_, "vslider.png");
     putSProperty("Name", "VSlider" + IDGen.next());
+    putSProperty("tooltip", "VSlider");
     putFProperty("min", 0);
     putFProperty("max", 1);
   }
@@ -266,22 +229,10 @@ public class VSliderDrawable extends Drawable {
     this(x_, y_, w_, h_, ux_, uy_);
     headers = hdrs;
   }
-    
+
   // implement abstract methods
   public String toXML() {
-    return (
-      "<widget type=\"vslider\">" + "\n" +  
-      "<name label=\"" + pvS("Name") + "\">"  + pvS("Name") + "</name>" + "\n" +
-
-      "<position " +  
-      "x=\"" + pv("x") + "\" " +
-      "y=\"" + pv("y") + "\" " + 
-      "w=\"" + pv("width") + "\" " + 
-      "h=\"" + pv("height") + "\">" + 
-      "</position>" + "\n" +
-
-      "</widget>"
-      );
+    return (toXML("", "vslider"));
   }
 
   public Drawable clone() {
@@ -289,24 +240,59 @@ public class VSliderDrawable extends Drawable {
       pv("width"), pv("height"), 
       pv("ux"), pv("uy"), headers);
   }
+}
 
 
-  // overwrite draw method
-  public void draw() {
-    int offRx = pv("offRx");
-    int offRy = pv("offRy");
+/////////////// Slider2D
+public class Slider2DDrawable extends ImageDrawable {
 
-    super.draw();
+  public Slider2DDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_) {
+    super(x_, y_, w_, h_, ux_, uy_, "slider2d.png");
+    putSProperty("Name", "slider2D" + IDGen.next());
+    putSProperty("tooltip", "Slider2D");
+  }
 
-    pushStyle();
-    fill(#444444);
-    stroke(#000000);
-    strokeWeight(2);
-    //ellipse(x + w/2, y + h/2, w, h);
-    imageMode(CENTER);
-    image(img, pv("x")+(pv("width")/2) + offRx, 
-      pv("y") + (pv("height")/2) + offRy, 
-      20, pv("height"));
-    popStyle();
+  public Slider2DDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_, String[] hdrs) {
+    this(x_, y_, w_, h_, ux_, uy_);
+    headers = hdrs;
+  }
+
+  // implement abstract methods
+  public String toXML() {
+    return (toXML("", "slider2D"));
+  }
+
+  public Drawable clone() {
+    return new Slider2DDrawable(
+      pv("x"), pv("y"), 
+      pv("width"), pv("height"), 
+      pv("ux"), pv("uy"), headers);
+  }
+}
+
+/////////////// TextField
+public class TextFieldDrawable extends ImageDrawable {
+
+  public TextFieldDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_) {
+    super(x_, y_, w_, h_, ux_, uy_, "textfield.png");
+    putSProperty("Name", "TextField" + IDGen.next());
+    putSProperty("tooltip", "Textfield");
+  }
+
+  public TextFieldDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_, String[] hdrs) {
+    this(x_, y_, w_, h_, ux_, uy_);
+    headers = hdrs;
+  }
+
+  // implement abstract methods
+  public String toXML() {
+    return (toXML("", "textfield"));
+  }
+
+  public Drawable clone() {
+    return new TextFieldDrawable(
+      pv("x"), pv("y"), 
+      pv("width"), pv("height"), 
+      pv("ux"), pv("uy"), headers);
   }
 }
