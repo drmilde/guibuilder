@@ -80,6 +80,17 @@ void setup() {
     catalogSize, catalogSize, 0, 0, textFieldHeaders);
   catalog.add(tfd);
 
+  String[] multiSliderHeaders  = {"Name", "x", "y", "width", "height", "min", "max"};
+  MultiSliderDrawable msd = new MultiSliderDrawable(10, 
+    ursprung_y + (catalogSize + 10) * 7, 
+    catalogSize, catalogSize, 0, 0, multiSliderHeaders);
+  catalog.add(msd);
+
+  String[] multiTextHeaders  = {"Name", "x", "y", "width", "height", "min", "max"};
+  MultiTextDrawable mtd = new MultiTextDrawable(10, 
+    ursprung_y + (catalogSize + 10) * 8, 
+    catalogSize, catalogSize, 0, 0, multiTextHeaders);
+  catalog.add(mtd);
 
   // controls in G4P
   G4P.setGlobalColorScheme(5);
@@ -179,7 +190,7 @@ void update() {
       if (tt != "") {
         pushStyle();
         fill(#ffffff);
-        rect(mouseX, mouseY, 80, 20);
+        rect(mouseX, mouseY, 90, 20);
         fill(#000000);    
         text (tt, mouseX+20, mouseY+15);
         popStyle();
