@@ -31,6 +31,13 @@ char ctrlKey = ' ';
 // detect shift key
 boolean shiftPressed = false;
 
+// scale factors
+
+float scalex = 1.0;
+float scaley = 1.0;
+int mouseTraveledX = 0;
+int mouseTraveledY = 0;
+
 //
 PropertyPanel panel;
 
@@ -91,6 +98,12 @@ void setup() {
     ursprung_y + (catalogSize + 10) * 8, 
     catalogSize, catalogSize, 0, 0, multiTextHeaders);
   catalog.add(mtd);
+
+  String[] flowLayoutHeaders  = {"Name", "x", "y", "width", "height", "min", "max"};
+  FlowLayoutDrawable fld = new FlowLayoutDrawable(10, 
+    ursprung_y + (catalogSize + 10) * 9, 
+    catalogSize, catalogSize, 0, 0, flowLayoutHeaders);
+  catalog.add(fld);
 
   // controls in G4P
   G4P.setGlobalColorScheme(5);
@@ -198,6 +211,10 @@ void update() {
     }
 
     cursor(ARROW); // reset cursor to arrow
+    
+    // adjust size to grid
+    items.updateSize(gridSize);
+    
   }
 
   if (state == 1) { // mouse has been clicked, select item(s)
@@ -231,6 +248,14 @@ void update() {
     items.setRelativePos(mouseX - rx, mouseY - ry, gridSize);
     // update property panel
     updatePropertyPanel();
+  }
+
+
+  if (state == 3) { // start scaling
+    // do something here
+    mouseTraveledX = 0;
+    mouseTraveledY = 0;
+    state = 33; // scaling
   }
 
   if (state == 4) { // clone and add the item from catalog to items
@@ -320,6 +345,7 @@ void update() {
     items.clear();
     state = 0;
   }
+
   if (state == 100) { // increase width
     items.increaseWidth(20, gridSize);
     state = 0;
@@ -438,6 +464,18 @@ void keyReleased() {
       state = 101; // decrease width
       break;
     }
+  }
+}
+
+void mouseMoved() {
+  if (state == 33) { // moving mouse to scale
+    mouseTraveledX = (mouseX - pmouseX);
+    mouseTraveledY = (mouseY - pmouseY);
+    items.setWidthDelta(gridSize*2, mouseTraveledX, gridSize);
+    items.setHeightDelta(gridSize*2, mouseTraveledY, gridSize);
+
+    // update property panel
+    updatePropertyPanel();
   }
 }
 

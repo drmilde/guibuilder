@@ -297,6 +297,34 @@ public class TextFieldDrawable extends ImageDrawable {
   }
 }
 
+
+/////////////// MultiText
+public class MultiTextDrawable extends ImageDrawable {
+
+  public MultiTextDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_) {
+    super(x_, y_, w_, h_, ux_, uy_, "multitext.png");
+    putSProperty("Name", "MultiText" + IDGen.next());
+    putSProperty("tooltip", "Multitext");
+  }
+
+  public MultiTextDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_, String[] hdrs) {
+    this(x_, y_, w_, h_, ux_, uy_);
+    headers = hdrs;
+  }
+
+  // implement abstract methods
+  public String toXML() {
+    return (toXML("", "multitext"));
+  }
+
+  public Drawable clone() {
+    return new MultiTextDrawable(
+      pv("x"), pv("y"), 
+      pv("width"), pv("height"), 
+      pv("ux"), pv("uy"), headers);
+  }
+}
+
 /////////////// MultiSlider
 public class MultiSliderDrawable extends ImageDrawable {
 
@@ -324,27 +352,29 @@ public class MultiSliderDrawable extends ImageDrawable {
   }
 }
 
-/////////////// MultiSlider
-public class MultiTextDrawable extends ImageDrawable {
 
-  public MultiTextDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_) {
-    super(x_, y_, w_, h_, ux_, uy_, "multitext.png");
-    putSProperty("Name", "MultiText" + IDGen.next());
-    putSProperty("tooltip", "Multitext");
+
+/////////////// FlowLayout
+public class FlowLayoutDrawable extends ImageDrawable {
+
+  public FlowLayoutDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_) {
+    super(x_, y_, w_, h_, ux_, uy_, "flowlayout.png");
+    putSProperty("Name", "FlowLayout" + IDGen.next());
+    putSProperty("tooltip", "FlowLayout");
   }
 
-  public MultiTextDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_, String[] hdrs) {
+  public FlowLayoutDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_, String[] hdrs) {
     this(x_, y_, w_, h_, ux_, uy_);
     headers = hdrs;
   }
 
   // implement abstract methods
   public String toXML() {
-    return (toXML("", "multitext"));
+    return (toXML("", "flowlayout"));
   }
 
   public Drawable clone() {
-    return new MultiTextDrawable(
+    return new FlowLayoutDrawable(
       pv("x"), pv("y"), 
       pv("width"), pv("height"), 
       pv("ux"), pv("uy"), headers);

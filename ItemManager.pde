@@ -95,6 +95,39 @@ public class ItemManager {
     }
   }
 
+  public void updateSize(int gs) {
+    for (Drawable d : items) {
+      d.updateWidth(gs);
+      d.updateHeight(gs);
+    }
+  }
+
+
+  public void setWidthDelta(int minVal, int delta, int gs) {
+    for (Drawable d : items) {
+      if (d.isSelected()) {
+        d.setWidthDelta(minVal, delta);
+      }
+    }
+  }
+
+  public void increaseHeight(int inc, int gs) {
+    for (Drawable d : items) {
+      if (d.isSelected()) {
+        d.increaseHeight(inc, gs);
+      }
+    }
+  }
+
+  public void setHeightDelta(int minVal, int delta, int gs) {
+    for (Drawable d : items) {
+      if (d.isSelected()) {
+        d.setHeightDelta(minVal, delta);
+      }
+    }
+  }
+
+
   public void alignVertical(int gs) {
     Drawable fd = getFirstSelected();
     if (fd != null) {
