@@ -169,6 +169,25 @@ public abstract class Drawable implements IDrawable, ISelectable {
     putIProperty("height", h);
   }
 
+  public void setWidthDelta(int minVal, int delta) {
+    int val = getWidth() + delta;
+    putIProperty("width", max(minVal, val));
+  }
+  
+  public void setHeightDelta(int minVal, int delta) {
+    int val = getHeight() + delta;
+    putIProperty("height", max(minVal, val));
+  }
+
+  public void updateWidth(int gs) {
+    int w = getWidth();
+    if (gs > 0) {
+      w = w - (w % gs);
+    }
+    putIProperty("width", w);
+  }
+
+
   // ISelectable
   public boolean isOver(int px, int py) {
 
@@ -249,29 +268,13 @@ public abstract class Drawable implements IDrawable, ISelectable {
     return pv("height");
   }
 
-  public void setWidthDelta(int minVal, int delta) {
-    int val = getWidth() + delta;
-    putIProperty("width", max(minVal, val));
-  }
-  public void setHeightDelta(int minVal, int delta) {
-    int val = getHeight() + delta;
-    putIProperty("height", max(minVal, val));
-  }
-  
-  public void updateWidth(int gs) {
-    int w = getWidth();
-    if (gs > 0) {
-      w = w - (w % gs);
-    }
-    putIProperty("width", w);    
-  }
-  
+
   public void updateHeight(int gs) {
     int val = getHeight();
     if (gs > 0) {
       val = val - (val % gs);
     }
-    putIProperty("height", val);    
+    putIProperty("height", val);
   }
 
   public String getState(String sname) {

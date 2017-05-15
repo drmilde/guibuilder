@@ -31,12 +31,9 @@ char ctrlKey = ' ';
 // detect shift key
 boolean shiftPressed = false;
 
-// scale factors
-
-float scalex = 1.0;
-float scaley = 1.0;
-int mouseTraveledX = 0;
-int mouseTraveledY = 0;
+// scale axis
+boolean xAxisScale = true;
+boolean yAxisScale = true;
 
 //
 PropertyPanel panel;
@@ -211,10 +208,13 @@ void update() {
     }
 
     cursor(ARROW); // reset cursor to arrow
-    
+
     // adjust size to grid
     items.updateSize(gridSize);
     
+    // reset scale axis
+    xAxisScale = true;
+    yAxisScale = true;
   }
 
   if (state == 1) { // mouse has been clicked, select item(s)
@@ -248,14 +248,6 @@ void update() {
     items.setRelativePos(mouseX - rx, mouseY - ry, gridSize);
     // update property panel
     updatePropertyPanel();
-  }
-
-
-  if (state == 3) { // start scaling
-    // do something here
-    mouseTraveledX = 0;
-    mouseTraveledY = 0;
-    state = 33; // scaling
   }
 
   if (state == 4) { // clone and add the item from catalog to items
@@ -418,7 +410,18 @@ void keyReleased() {
     }
   case 'x' : 
     {
-      state = 5; // remove state
+      if (state == 3) { // scale mode x-axis
+        yAxisScale = false;
+      } else {
+        state = 5; // remove state
+      }
+      break;
+    }
+  case 'y' : 
+    {
+      if (state == 3) { // scale mode y-axis
+        xAxisScale = false; // remove state
+      }
       break;
     }
   case 'D' : 
@@ -468,11 +471,15 @@ void keyReleased() {
 }
 
 void mouseMoved() {
-  if (state == 33) { // moving mouse to scale
-    mouseTraveledX = (mouseX - pmouseX);
-    mouseTraveledY = (mouseY - pmouseY);
-    items.setWidthDelta(gridSize*2, mouseTraveledX, gridSize);
-    items.setHeightDelta(gridSize*2, mouseTraveledY, gridSize);
+  if (state == 3) { // moving mouse to scale
+    int deltaX = (mouseX - pmouseX);
+    int deltaY = (mouseY - pmouseY);
+    if (xAxisScale) {
+      items.setWidthDelta(gridSize*2, deltaX, gridSize);
+    }
+    if (yAxisScale) {
+      items.setHeightDelta(gridSize*2, deltaY, gridSize);
+    }
 
     // update property panel
     updatePropertyPanel();
