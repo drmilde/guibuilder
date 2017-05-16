@@ -3,6 +3,7 @@ import java.io.*;
 
 public class ItemManager {
   private ArrayList<Drawable> items = new ArrayList<Drawable>();
+  private ArrayList<Drawable> copy = new ArrayList<Drawable>();
 
   public ItemManager() {
     clear();
@@ -10,10 +11,35 @@ public class ItemManager {
 
   public void clear() {
     items.clear();
+    copy.clear();
   }
 
   public void add(Drawable d) {
     items.add(d);
+    order();
+  }
+
+  public void order() {
+    copy.clear();
+    // first copy non-group drawables
+    for (Drawable d : items) {
+      if (!(d.getName().startsWith("Group"))) {
+        copy.add(d);
+      }
+    }
+
+    // now copy groups
+    for (Drawable d : items) {
+      if ((d.getName().startsWith("Group"))) {
+        copy.add(d);
+      }
+    }
+
+    // copy back to items
+    items.clear();  
+    for (Drawable d : copy) {
+      items.add(d);
+    }
   }
 
   public void addAndSelect(Drawable d) {
@@ -41,13 +67,22 @@ public class ItemManager {
     for (Drawable d : items) {
       if (d.isOver(x, y)) {
         d.select(true);
+
+        // if group, then select children
+        if (d.getName().startsWith("Group")) {
+          boxSelect(d.getAbsoluteX(), d.getAbsoluteY(), 
+            d.getWidth(), d.getHeight(), false);
+        }
+
         return;
       }
     }
   }
 
-  public void boxSelect(int bx, int by, int bwidth, int bheight) {
-    unSelectAll();
+  public void boxSelect(int bx, int by, int bwidth, int bheight, boolean clear) {
+    if (clear) {
+      unSelectAll();
+    }
     for (Drawable d : items) {
       if (d.inBox(bx, by, bwidth, bheight)) {
         d.select(true);
@@ -248,6 +283,8 @@ public class ItemManager {
       d.updateAbsolutePos(gs);
       items.add(d);
     }
+
+    order();
   }
 
   public String getTooltip(int px, int py) {

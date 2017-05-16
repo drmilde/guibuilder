@@ -35,7 +35,7 @@ boolean shiftPressed = false;
 boolean xAxisScale = true;
 boolean yAxisScale = true;
 
-//
+// instance of property panel
 PropertyPanel panel;
 
 void setup() {
@@ -101,6 +101,12 @@ void setup() {
     ursprung_y + (catalogSize + 10) * 9, 
     catalogSize, catalogSize, 0, 0, flowLayoutHeaders);
   catalog.add(fld);
+
+  String[] groupHeaders  = {"Name", "x", "y", "width", "height"};
+  GroupDrawable grd = new GroupDrawable(10, 
+    ursprung_y + (catalogSize + 10) * 10, 
+    catalogSize, catalogSize, 0, 0, groupHeaders);
+  catalog.add(grd);
 
   // controls in G4P
   G4P.setGlobalColorScheme(5);
@@ -211,7 +217,7 @@ void update() {
 
     // adjust size to grid
     items.updateSize(gridSize);
-    
+
     // reset scale axis
     xAxisScale = true;
     yAxisScale = true;
@@ -314,7 +320,7 @@ void update() {
     int miny = min(minBoxY, maxBoxY);
     int maxy = max(minBoxY, maxBoxY);
 
-    items.boxSelect ( minx, miny, (maxx - minx), (maxy - miny) );     
+    items.boxSelect ( minx, miny, (maxx - minx), (maxy - miny), true );     
     state = 0;
   }
 
@@ -398,16 +404,25 @@ void keyReleased() {
       state = 2; // grab state
       break;
     }
+
   case 's' : 
     {
-      state = 3; // scale state
+      state = 3; // nonlinear scale state
       break;
     }
+
+  case 'S' : 
+    {
+      state = 33; // linear scale state
+      break;
+    }
+
   case 'A' : 
     {
       state = 4; // add state
       break;
     }
+
   case 'x' : 
     {
       if (state == 3) { // scale mode x-axis
@@ -424,6 +439,7 @@ void keyReleased() {
       }
       break;
     }
+
   case 'D' : 
     {
       state = 6; // duplicate selected
@@ -432,19 +448,22 @@ void keyReleased() {
 
   case 'P' : 
     {
-      state = 7; // export to XML selected
+      state = 7; // print XML selected
       break;
     }
+
   case 'O' : 
     {
       state = 8; //save to bytes selected
       break;
     }
+
   case 'b' : 
     {
       state = 9; // box select selected
       break;
     }
+
   case 'a' : 
     {
       state = 12; // toggle select all
@@ -453,7 +472,7 @@ void keyReleased() {
 
   case 'n': 
     {
-      state = 13; // toggle 
+      state = 13; // toggle property panel
       break;
     }
 
@@ -471,19 +490,25 @@ void keyReleased() {
 }
 
 void mouseMoved() {
-  if (state == 3) { // moving mouse to scale
-    int deltaX = (mouseX - pmouseX);
-    int deltaY = (mouseY - pmouseY);
+  int deltaX = (mouseX - pmouseX);
+  int deltaY = (mouseY - pmouseY);
+
+  if (state == 3) { // moving mouse to scale, nonlinear
     if (xAxisScale) {
       items.setWidthDelta(gridSize*2, deltaX, gridSize);
     }
     if (yAxisScale) {
       items.setHeightDelta(gridSize*2, deltaY, gridSize);
     }
-
-    // update property panel
-    updatePropertyPanel();
   }
+
+  if (state == 33) { // linear scaling
+    items.setWidthDelta(gridSize*2, deltaX, gridSize);
+    items.setHeightDelta(gridSize*2, deltaX, gridSize);
+  }
+
+  // update property panel
+  updatePropertyPanel();
 }
 
 void mouseDragged() {
