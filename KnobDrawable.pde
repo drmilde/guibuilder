@@ -412,7 +412,6 @@ public class GroupDrawable extends ImageDrawable {
 
 
 ///////////////////// VRANGESLIDER
-
 public class VRangeSliderDrawable extends ImageDrawable {
 
   public VRangeSliderDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_) {
@@ -435,6 +434,35 @@ public class VRangeSliderDrawable extends ImageDrawable {
 
   public Drawable clone() {
     return new VRangeSliderDrawable(pv("x"), pv("y"), 
+      pv("width"), pv("height"), 
+      pv("ux"), pv("uy"), headers);
+  }
+}
+
+
+///////////////////// VRANGESLIDER
+public class HRangeSliderDrawable extends ImageDrawable {
+
+  public HRangeSliderDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_) {
+    super(x_, y_, w_, h_, ux_, uy_, "hrangeslider.png");
+    putSProperty("Name", "HRangeSlider" + IDGen.next());
+    putSProperty("tooltip", "HRangeSlider");
+    putFProperty("min", 0);
+    putFProperty("max", 1);
+  }
+
+  public HRangeSliderDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_, String[] hdrs) {
+    this(x_, y_, w_, h_, ux_, uy_);
+    headers = hdrs;
+  }
+
+  // implement abstract methods
+  public String toXML() {
+    return (toXML("", "hrangeslider"));
+  }
+
+  public Drawable clone() {
+    return new HRangeSliderDrawable(pv("x"), pv("y"), 
       pv("width"), pv("height"), 
       pv("ux"), pv("uy"), headers);
   }

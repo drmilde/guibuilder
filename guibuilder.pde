@@ -114,6 +114,12 @@ void setup() {
     catalogSize, catalogSize, 0, 0, vrangeSliderHeaders);
   catalog.add(vrsd);
 
+  String[] hrangeSliderHeaders  = {"Name", "x", "y", "width", "height", "min", "max"};
+  HRangeSliderDrawable hrsd = new HRangeSliderDrawable(10, 
+    ursprung_y + (catalogSize + 10) * 12, 
+    catalogSize, catalogSize, 0, 0, hrangeSliderHeaders);
+  catalog.add(hrsd);
+
   // controls in G4P
   G4P.setGlobalColorScheme(5);
   G4P.setMouseOverEnabled(false);
