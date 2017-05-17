@@ -41,84 +41,9 @@ PropertyPanel panel;
 void setup() {
   size(1094, 700);
 
-  // aufbau catalog
-  String[] knobHeaders  = {"Name", "x", "y", "width", "height"};
-  KnobDrawable kd = new KnobDrawable(10, 
-    ursprung_y, 
-    catalogSize, catalogSize, 0, 0, knobHeaders);
-  catalog.add(kd);
 
-  String[] buttonHeaders  = {"Name", "x", "y", "width", "height", "state 1", "state 2", "state 3", "state 4" };
-  ButtonDrawable bd = new ButtonDrawable(10, 
-    ursprung_y + (catalogSize+10) * 1, 
-    catalogSize, catalogSize, 0, 0, buttonHeaders);   
-  catalog.add(bd);
-
-  String[] labelHeaders  = {"Name", "x", "y", "width", "height", "Text"};
-  LabelDrawable ld = new LabelDrawable("label", 10, 
-    ursprung_y + (catalogSize+10) * 2, 
-    catalogSize, catalogSize, 0, 0, labelHeaders); 
-  catalog.add(ld);
-
-  String[] hsliderHeaders  = {"Name", "x", "y", "width", "height", "min", "max"};
-  HSliderDrawable hsd = new HSliderDrawable(10, 
-    ursprung_y + (catalogSize + 10) * 3, 
-    catalogSize, catalogSize, 0, 0, hsliderHeaders);
-  catalog.add(hsd);
-
-  String[] vsliderHeaders  = {"Name", "x", "y", "width", "height", "min", "max"};
-  VSliderDrawable vsd = new VSliderDrawable(10, 
-    ursprung_y + (catalogSize + 10) * 4, 
-    catalogSize, catalogSize, 0, 0, vsliderHeaders);
-  catalog.add(vsd);
-
-  String[] slider2DHeaders  = {"Name", "x", "y", "width", "height", "min", "max"};
-  Slider2DDrawable s2dd = new Slider2DDrawable(10, 
-    ursprung_y + (catalogSize + 10) * 5, 
-    catalogSize, catalogSize, 0, 0, slider2DHeaders);
-  catalog.add(s2dd);
-
-  String[] textFieldHeaders  = {"Name", "x", "y", "width", "height", "min", "max"};
-  TextFieldDrawable tfd = new TextFieldDrawable(10, 
-    ursprung_y + (catalogSize + 10) * 6, 
-    catalogSize, catalogSize, 0, 0, textFieldHeaders);
-  catalog.add(tfd);
-
-  String[] multiSliderHeaders  = {"Name", "x", "y", "width", "height", "min", "max"};
-  MultiSliderDrawable msd = new MultiSliderDrawable(10, 
-    ursprung_y + (catalogSize + 10) * 7, 
-    catalogSize, catalogSize, 0, 0, multiSliderHeaders);
-  catalog.add(msd);
-
-  String[] multiTextHeaders  = {"Name", "x", "y", "width", "height", "min", "max"};
-  MultiTextDrawable mtd = new MultiTextDrawable(10, 
-    ursprung_y + (catalogSize + 10) * 8, 
-    catalogSize, catalogSize, 0, 0, multiTextHeaders);
-  catalog.add(mtd);
-
-  String[] flowLayoutHeaders  = {"Name", "x", "y", "width", "height", "min", "max"};
-  FlowLayoutDrawable fld = new FlowLayoutDrawable(10, 
-    ursprung_y + (catalogSize + 10) * 9, 
-    catalogSize, catalogSize, 0, 0, flowLayoutHeaders);
-  catalog.add(fld);
-
-  String[] groupHeaders  = {"Name", "x", "y", "width", "height"};
-  GroupDrawable grd = new GroupDrawable(10, 
-    ursprung_y + (catalogSize + 10) * 10, 
-    catalogSize, catalogSize, 0, 0, groupHeaders);
-  catalog.add(grd);
-
-  String[] vrangeSliderHeaders  = {"Name", "x", "y", "width", "height", "min", "max"};
-  VRangeSliderDrawable vrsd = new VRangeSliderDrawable(10, 
-    ursprung_y + (catalogSize + 10) * 11, 
-    catalogSize, catalogSize, 0, 0, vrangeSliderHeaders);
-  catalog.add(vrsd);
-
-  String[] hrangeSliderHeaders  = {"Name", "x", "y", "width", "height", "min", "max"};
-  HRangeSliderDrawable hrsd = new HRangeSliderDrawable(10, 
-    ursprung_y + (catalogSize + 10) * 12, 
-    catalogSize, catalogSize, 0, 0, hrangeSliderHeaders);
-  catalog.add(hrsd);
+  // create catalog
+  createCatalog(10, -20);
 
   // controls in G4P
   G4P.setGlobalColorScheme(5);
@@ -555,6 +480,13 @@ public void keyPressed() {
   if (ctrlPressed) {
     if (char(keyCode) == 'N') {
       ctrlKey = 'n';
+    }
+  }
+
+  // catch ESC ??
+  if (key == CODED) {
+    if (keyCode == ESC) {
+      println ("esc pressed");
     }
   }
 }
