@@ -466,6 +466,12 @@ void mouseReleased() {
 }
 
 public void keyPressed() {
+    // catch ESC ??
+    if (keyCode == ESC) {
+      key = 0;
+      state = 0;
+    }  
+  
   // react to ctrl + key
   if ((keyCode == CONTROL) && (!ctrlPressed)) {
     ctrlPressed = true;
@@ -483,12 +489,6 @@ public void keyPressed() {
     }
   }
 
-  // catch ESC ??
-  if (key == CODED) {
-    if (keyCode == ESC) {
-      println ("esc pressed");
-    }
-  }
 }
 
 // export to xml
