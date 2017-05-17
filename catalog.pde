@@ -42,6 +42,12 @@ public void createCatalog(int px, int py) {
     catalogSize, catalogSize, 0, 0, hrangeSliderHeaders);
   catalog.add(hrsd);
 
+  String[] gridLayoutHeaders  = {"Name", "x", "y", "width", "height", "min", "max"};
+  GridLayoutDrawable gld = new GridLayoutDrawable(px, 
+    ursprung_y + py + (catalogSize + 10) * 7, 
+    catalogSize, catalogSize, 0, 0, gridLayoutHeaders);
+  catalog.add(gld);
+
   secondColumn(px + 60, py);
 }
 
@@ -78,10 +84,16 @@ public void secondColumn(int px, int py) {
     catalogSize, catalogSize, 0, 0, flowLayoutHeaders);
   catalog.add(fld);
 
-
   String[] vrangeSliderHeaders  = {"Name", "x", "y", "width", "height", "min", "max"};
   VRangeSliderDrawable vrsd = new VRangeSliderDrawable(px, 
     ursprung_y + py + (catalogSize + 10) * 5, 
     catalogSize, catalogSize, 0, 0, vrangeSliderHeaders);
   catalog.add(vrsd);
+
+  String[] listViewHeaders  = {"Name", "x", "y", "width", "height", "min", "max"};
+  ListViewDrawable lvd = new ListViewDrawable(px, 
+    ursprung_y + py + (catalogSize + 10) * 6, 
+    catalogSize, catalogSize, 0, 0, listViewHeaders);
+  catalog.add(lvd);
+  
 }

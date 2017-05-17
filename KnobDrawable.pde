@@ -382,7 +382,7 @@ public class FlowLayoutDrawable extends ImageDrawable {
 }
 
 
-/////////////// FlowLayout
+/////////////// GROUP
 public class GroupDrawable extends ImageDrawable {
 
   public GroupDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_) {
@@ -463,6 +463,62 @@ public class HRangeSliderDrawable extends ImageDrawable {
 
   public Drawable clone() {
     return new HRangeSliderDrawable(pv("x"), pv("y"), 
+      pv("width"), pv("height"), 
+      pv("ux"), pv("uy"), headers);
+  }
+}
+
+
+///////////////////// LISTVIEW
+public class ListViewDrawable extends ImageDrawable {
+
+  public ListViewDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_) {
+    super(x_, y_, w_, h_, ux_, uy_, "listview.png");
+    putSProperty("Name", "ListView" + IDGen.next());
+    putSProperty("tooltip", "ListView");
+    putFProperty("min", 0);
+    putFProperty("max", 1);
+  }
+
+  public ListViewDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_, String[] hdrs) {
+    this(x_, y_, w_, h_, ux_, uy_);
+    headers = hdrs;
+  }
+
+  // implement abstract methods
+  public String toXML() {
+    return (toXML("", "listview"));
+  }
+
+  public Drawable clone() {
+    return new ListViewDrawable(pv("x"), pv("y"), 
+      pv("width"), pv("height"), 
+      pv("ux"), pv("uy"), headers);
+  }
+}
+
+/////////////// GridLayout
+public class GridLayoutDrawable extends ImageDrawable {
+
+  public GridLayoutDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_) {
+    super(x_, y_, w_, h_, ux_, uy_, "gridlayout.png");
+    putSProperty("Name", "GridLayout" + IDGen.next());
+    putSProperty("tooltip", "GridLayout");
+  }
+
+  public GridLayoutDrawable(int x_, int y_, int w_, int h_, int ux_, int uy_, String[] hdrs) {
+    this(x_, y_, w_, h_, ux_, uy_);
+    headers = hdrs;
+  }
+
+  // implement abstract methods
+  public String toXML() {
+    return (toXML("", "gridlayout"));
+  }
+
+  public Drawable clone() {
+    return new GridLayoutDrawable(
+      pv("x"), pv("y"), 
       pv("width"), pv("height"), 
       pv("ux"), pv("uy"), headers);
   }

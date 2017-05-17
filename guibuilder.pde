@@ -275,6 +275,12 @@ void update() {
     state = 0;
   }
 
+  if (state == 90) { // esc pressed
+    items.unSelectAll();
+    selectAll = false;
+    state = 0;
+  }
+
 
   if (state == 99) { // clear items
     items.clear();
@@ -466,12 +472,12 @@ void mouseReleased() {
 }
 
 public void keyPressed() {
-    // catch ESC ??
-    if (keyCode == ESC) {
-      key = 0;
-      state = 0;
-    }  
-  
+  // catch ESC ??
+  if (keyCode == ESC) {
+    key = 0;
+    state = 90; // unselect all
+  }  
+
   // react to ctrl + key
   if ((keyCode == CONTROL) && (!ctrlPressed)) {
     ctrlPressed = true;
@@ -488,7 +494,6 @@ public void keyPressed() {
       ctrlKey = 'n';
     }
   }
-
 }
 
 // export to xml
